@@ -8,6 +8,6 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
-	<!--Your comment-->
+	<!--Your comment by crugio-->
   </welcome-file-list>
 </web-app>
