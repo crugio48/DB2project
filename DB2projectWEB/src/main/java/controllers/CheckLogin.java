@@ -39,9 +39,7 @@ public class CheckLogin extends HttpServlet {
 	}
 
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//the path for any type of error
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
@@ -79,6 +77,9 @@ public class CheckLogin extends HttpServlet {
 		*/
 		
 		
+	}
+	
+	public void destroy() {
 	}
 
 }
