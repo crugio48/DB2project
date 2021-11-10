@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 
-import javax.persistence.NonUniqueResultException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
