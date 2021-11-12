@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Customer Home Page</title>
+</head>
+
+
+<body>
+
+	<div align="right"> <a href="Logout">Logout</a> </div>
+
+	<div th:if="${true}">
+		<table border = "1px solid black">
+			<thead>
+				<tr>
+					<th>List of Service Packages</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="s : ${servicePackages}">
+					<td th:text="${s.servicePackageName}">[service_package_name] </td>
+					
+					<td> 
+						 
+						<div th:if="quel service package ha mobile phone"> <p>Fixed phone</p>
+							
+							<table border = "1px solid black">
+								<thead>
+									<tr>
+										<th>Feature Name</th>
+										<th>Quantity</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each= >
+										<td>minutes</td>
+										<td>#minuti</td>
+										<td>#prezzo</td>
+									</tr>
+									<tr>
+										<td>SMS</td>
+										<td>#minuti</td>
+										<td>#prezzo</td>
+									</tr>
+									<tr>
+										<td>Minutes Fees</td>
+										<td>#minuti</td>
+										<td>#prezzo</td>
+									</tr>
+									<tr>
+										<td>SMS Fees</td>
+										<td>#minuti</td>
+										<td>#prezzo</td>
+									</tr>
+								</tbody>
+							</table>
+						</div> 
+					</td>
+				</tr>
+				
+				<tr th:text="Optional Products:">
+					<td> 
+						<table border = "1px solid black"> 
+							<thead> 
+								<tr> 
+									<th>OP Name</th>
+									<th>Monthly Fee</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> [nome_OP_1]</td>
+									<td> [prezzo_OP_1]</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	
+
+</body>
+
+
+
+</html>
