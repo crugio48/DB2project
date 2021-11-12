@@ -79,9 +79,9 @@ public class CheckLogin extends HttpServlet {
 			return;
 		}
 		else if (employee != null) {
-			session.setAttribute("errorMessage", "correct employee");
-			response.sendRedirect(loginpath);
-			return;
+			session.setAttribute("employee", employee);
+			path = getServletContext().getContextPath() + "/GoToHomeEmployee";
+			response.sendRedirect(path);
 		}
 		
 		//TODO all following in the above code

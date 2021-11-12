@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Home page</title>
+</head>
+<body>
+	<div align="right">
+		<a href="Logout">Logout</a>
+	</div>
+	
+	<h1 th:text="${'Welcome ' + session.employee.username + ' this is your home page'}"></h1>
+
+
+</body>
+</html>
