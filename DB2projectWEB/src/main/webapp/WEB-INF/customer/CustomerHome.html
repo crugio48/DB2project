@@ -2,71 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<title>Customer Home Page</title>
+    <meta charset="UTF-8"> <title>Customer Home Page</title>
 </head>
 
-
 <body>
-
 	<div align="right"> <a href="Logout">Logout</a> </div>
 
 	<div th:if="${true}">
 		<table border = "1px solid black">
 			<thead>
 				<tr>
-					<th>List of Service Packages</th>
+				    <th>List of Service Package</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="s : ${servicePackages}">
-					<td th:text="${s.servicePackageName}">[service_package_name] </td>
-					
-					<td> 
-						 
-						<div th:if="${s.mobilePhone != empty}"> <p>Fixed phone</p>
-							
-							<table border = "1px solid black">
-								<thead>
-									<tr>
-										<th>Feature Name</th>
-										<th>Quantity</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each= >
-										<td>minutes</td>
-										<td>#minuti</td>
-										<td>#prezzo</td>
-									</tr>
-									<tr>
-										<td>SMS</td>
-										<td>#minuti</td>
-										<td>#prezzo</td>
-									</tr>
-									<tr>
-										<td>Minutes Fees</td>
-										<td>#minuti</td>
-										<td>#prezzo</td>
-									</tr>
-									<tr>
-										<td>SMS Fees</td>
-										<td>#minuti</td>
-										<td>#prezzo</td>
-									</tr>
-								</tbody>
-							</table>
-						</div> 
-					</td>
+		        <tr th:each="s : ${servicePackages}">
+				    <td th:text="${s.servicePackageName}">[service_package_name] 
+					<table>
+					    <thead> 
+							<tr> 
+							    <th><div align="left">Fixed Phone</div></th>
+							</tr>
+					    </thead>
+					    <tbody>
+						</tbody>
+					</table>
+                    <table>
+					    <thead> 
+							<tr> 
+					    		<th> <div align="left"> Mobile Phone </div></th>
+							</tr>
+					    </thead>
+					    <tbody>
+							<tr>
+								<td> 
+									<table border = "1px solid black">
+										<thead>
+											<tr>
+												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each= > <td>minutes</td> <td>#minuti</td> <td>#prezzo</td> </tr>
+											<tr> <td>SMS</td> <td>#minuti</td> <td>#prezzo</td> </tr>
+											<tr> <td>Minutes Fees</td> <td>#minuti</td> <td>#prezzo</td> </tr>
+											<tr> <td>SMS Fees</td> <td>#minuti</td> <td>#prezzo</td> </tr>
+										</tbody>
+									</table>	
+								</td>
+								</tr>
+							</tbody>
+					</table>
+					<table>
+					    <thead> 
+							<tr> 
+					    		<th> <div align="left"> Mobile Internet </div></th>
+							</tr>
+					    </thead>
+					    <tbody>
+							<tr>
+								<td> 
+									<table border = "1px solid black">
+										<thead>
+											<tr>
+												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each= > <td>Gigabytes</td> <td>#giga</td> <td></td> </tr>
+											<tr> <td>Fee per Gigabytes</td> <td></td> <td>#prezzo</td> </tr>
+										</tbody>
+									</table>	
+								</td>
+								</tr>
+							</tbody>
+					</table>
+					<table>
+					    <thead> 
+							<tr> 
+					    		<th><div align="left">Fixed Internet</div></th>
+							</tr>
+					    </thead>
+					    <tbody>
+							<tr>
+								<td> 
+									<table border = "1px solid black">
+										<thead>
+											<tr>
+												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each= > <td>Gigabytes</td> <td>#giga</td> <td></td> </tr>
+											<tr> <td>Fee per Gigabytes</td> <td></td> <td>#prezzo</td> </tr>
+										</tbody>
+									</table>	
+								</td>
+								</tr>
+							</tbody>
+					</table>
 				</tr>
-				
 				<tr th:text="Optional Products:">
 					<td> 
 						<table border = "1px solid black"> 
 							<thead> 
 								<tr> 
-									<th>OP Name</th>
+									<th>Optional Product Name</th>
 									<th>Monthly Fee</th>
 								</tr>
 							</thead>
@@ -78,15 +119,10 @@
 							</tbody>
 						</table>
 					</td>
+					
 				</tr>
-				
 			</tbody>
-		</table>
+			</table>
 	</div>
-	
-
 </body>
-
-
-
 </html>
