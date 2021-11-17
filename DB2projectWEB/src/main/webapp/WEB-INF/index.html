@@ -6,8 +6,19 @@
 </head>
 <body>
 	<h1>Welcome to the mission management application</h1>
-
+	
+	<h1>Here you can Login</h1>
+	
 	<form action="CheckLogin" method="POST">
+		Username: <input type="text" name="username" required> <br>
+		Password: <input type="password" name="pwd" required><br>
+		<input type="submit" value="login">
+		<p th:text=" ${errorMsg}"></p>
+	</form>
+	
+	<h1>Here you can Sign-up</h1>
+	
+	<form action="CustomerRegistration" method="POST">
 		Username: <input type="text" name="username" required> <br>
 		Password: <input type="password" name="pwd" required><br>
 		<input type="submit" value="login">
