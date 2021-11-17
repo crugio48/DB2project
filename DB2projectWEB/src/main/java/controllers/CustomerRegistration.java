@@ -66,14 +66,16 @@ public class CustomerRegistration extends HttpServlet {
 		
 		customer = customerService.createCustomer(usrn, pwd, email);
 		
-		
+		String path = null;
 		if (customer == null) {
 			session.setAttribute("errorMessage", "Invalid credentials, username already present");
 			response.sendRedirect(loginpath);
 			return;
 		}
 		else {
-			//goto customer servlet
+			session.setAttribute("customer", customer);
+			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
+			response.sendRedirect(path);
 		}
 		
 	}

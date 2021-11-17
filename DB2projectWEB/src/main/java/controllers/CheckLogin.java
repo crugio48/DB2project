@@ -86,7 +86,11 @@ public class CheckLogin extends HttpServlet {
 			response.sendRedirect(path);
 		}
 		else if (employee == null && customer != null) {
-			//goto customer
+			
+			session.setAttribute("customer", customer);
+			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
+			response.sendRedirect(path);
+			
 		}
 		else {
 			//should never get here, this means that there are one customer and one employee
