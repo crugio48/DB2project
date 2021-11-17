@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import entities.ValidityPeriod;
+import services.ValidityPeriodService;
+
 
 
 @WebServlet("/GoToHomeCustomer")
@@ -22,8 +27,9 @@ public class GoToHomeCustomer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
        
-	//TODO add EJB services
-   
+	@EJB(name = "services/ValidityPeriodService")
+	ValidityPeriodService validityPeriodService;
+	
     public GoToHomeCustomer() {
         super();
     }
@@ -47,12 +53,16 @@ public class GoToHomeCustomer extends HttpServlet {
 		//Customer customer = (Customer) session.getAttribute("customer");
 		//List<ServicePackage> = servicePackages = null
 		//servicePackages = ...
+		List<ValidityPeriod> validityPeriodList = null;
+		validityPeriodList = validityPeriodService.getAllValidityPeriods();
 		
 		String path = "/WEB-INF/customer/CustomerHome.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		//TODO add other info to thymeleaf context
+		
+		ctx.setVariable("validityPeriods", validityPeriodList);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

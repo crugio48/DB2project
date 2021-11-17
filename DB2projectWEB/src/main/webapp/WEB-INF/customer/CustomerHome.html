@@ -7,8 +7,27 @@
 
 <body>
 	<h1 th:text="${'Welcome ' + session.customer.username + ' this is your home page'}"></h1>
-
 	<div align="right"> <a href="Logout">Logout</a> </div>
+
+	<table border = "1px solid black">
+		<thead>
+			<tr> 
+				<th> ID </th>
+				<th> Duration </th>
+				<th> Monthly Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="v : ${validityPeriods}"> 
+				<td th:text = "${v.validity_period_id}"> 25 </td>
+				<td th:text = "${v.duration + ' months'}"> 5 months </td> 
+				<td th:text = "${v.monthly_fee + ' euros'}"> 1000€ </td>
+			</tr>
+			
+		</tbody>
+	</table>
+	
+	<br>
 
 	<div th:if="${true}">
 		<table border = "1px solid black">
@@ -126,5 +145,6 @@
 			</tbody>
 			</table>
 	</div>
+	
 </body>
 </html>
