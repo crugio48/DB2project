@@ -40,4 +40,15 @@ public class EmployeeService {
 		}
 	}
 	
+	public boolean isEmployeeAlreadyPresent(String username) {
+		Employee employee = em.find(Employee.class, username);
+		
+		if (employee != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

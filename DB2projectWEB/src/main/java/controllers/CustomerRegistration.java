@@ -16,18 +16,17 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import entities.Employee;
-import services.EmployeeService;
+import entities.Customer;
+import services.CustomerService;
+
 
 
 @WebServlet("/CustomerRegistration")
 public class CustomerRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-	
-	private EmployeeService employeeService;
-	
-	//TODO add ejb service for customer registration something like: @EJB(name = services/CustomerService)
+	@EJB(name = "services/CustomerService")
+	private CustomerService customerService;
 	
 	
     public CustomerRegistration() {
@@ -54,29 +53,28 @@ public class CustomerRegistration extends HttpServlet {
 		//obtain and escape params
 		String usrn = request.getParameter("username");
 		String pwd = request.getParameter("pwd");
+		String email = request.getParameter("email");
 		
-		if (usrn == null || pwd == null || usrn.isEmpty() || pwd.isEmpty()) {
+		if (usrn == null || pwd == null || usrn.isEmpty() || pwd.isEmpty() || email == null || email.isEmpty()) {
 			session.setAttribute("errorMessage", "Missing or empty credential value");
 			response.sendRedirect(loginpath);
 			return;
 		}
 		
 		
+		Customer customer = null;
+		
+		customer = customerService.createCustomer(usrn, pwd, email);
 		
 		
-		try {
-			
-			/*
-			 * effetturare controlli se lo username che stai creando esiste già nel database
-			 * */
-			
-			//customer = customerService.checkIfAlreadyExists(usrn);
-			
-			//TODO check customer and password using bean and service
-		} catch (Exception e) {
-			// something
+		if (customer == null) {
+			session.setAttribute("errorMessage", "Invalid credentials, username already present");
+			response.sendRedirect(loginpath);
+			return;
 		}
-		
+		else {
+			//goto customer servlet
+		}
 		
 	}
 	
