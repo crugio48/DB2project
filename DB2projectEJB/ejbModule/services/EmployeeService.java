@@ -17,7 +17,6 @@ public class EmployeeService {
 	public EmployeeService() {
 		
 	}
-	//---
 	
 	public Employee checkCredentials(String username, String password) {
 		List<Employee> employeeList = null;
@@ -38,6 +37,17 @@ public class EmployeeService {
 		else {
 			System.out.println("More than one user registered with same credentials");
 			return null;
+		}
+	}
+	
+	public boolean isEmployeeAlreadyPresent(String username) {
+		Employee employee = em.find(Employee.class, username);
+		
+		if (employee != null) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	

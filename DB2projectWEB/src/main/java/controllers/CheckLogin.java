@@ -16,7 +16,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import entities.Customer;
 import entities.Employee;
+import services.CustomerService;
 import services.EmployeeService;
 
 
@@ -26,8 +28,8 @@ public class CheckLogin extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/EmployeeService")
 	private EmployeeService employeeService;
-	
-	//TODO add ejb service
+	@EJB(name = "services/CustomerService")
+	private CustomerService customerService;
 	
 	
     public CheckLogin() {
@@ -62,44 +64,37 @@ public class CheckLogin extends HttpServlet {
 		}
 		
 		Employee employee = null;
-		try {
+		Customer customer = null;
+		
+		employee = employeeService.checkCredentials(usrn, pwd);
+		
+		customer = customerService.checkCredentials(usrn, pwd);
 			
-			employee = employeeService.checkCredentials(usrn, pwd);
 			
-			//TODO check customer and password using bean and service
-		} catch (Exception e) {
-			// something
-		}
+		
 		
 		
 		String path;
-		if (employee == null) {
+		if (employee == null && customer == null) {
 			session.setAttribute("errorMessage", "Missing or empty credential value");
 			response.sendRedirect(loginpath);
 			return;
 		}
-		else if (employee != null) {
+		else if (employee != null && customer == null) {
 			session.setAttribute("employee", employee);
 			path = getServletContext().getContextPath() + "/GoToHomeEmployee";
 			response.sendRedirect(path);
 		}
-		
-		//TODO all following in the above code
-		//if in the db we didn't find the user --> the user is null so we show a message saying incorrect values in the form
-		/*
-		if (user == null) {
-			
-			session.setAttribute("errorMessage", "Username or password not valid");
+		else if (employee == null && customer != null) {
+			//goto customer
+		}
+		else {
+			//should never get here, this means that there are one customer and one employee
+			//with the same username and password
+			session.setAttribute("errorMessage", "Database is inconsistent, fix needed");
 			response.sendRedirect(loginpath);
 			return;
-			
-		} else {
-			
-			//TODO send to customer or employee servlet 
-			
 		}
-		*/
-		
 		
 	}
 	
