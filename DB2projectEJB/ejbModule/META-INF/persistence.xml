@@ -3,5 +3,6 @@
 	<persistence-unit name="DB2projectEJB">
 		<jta-data-source>DB2projectResource</jta-data-source>
 		<class>entities.Employee</class>
+		<class>entities.Customer</class>
 	</persistence-unit>
 </persistence>

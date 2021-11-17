@@ -7,37 +7,38 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
-import entities.Employee;
+import entities.Customer;
 
 @Stateless
-public class EmployeeService {
+public class CustomerService {
 	@PersistenceContext(unitName = "DB2projectEJB")
 	private EntityManager em;
 	
-	public EmployeeService() {
+	public CustomerService() {
 		
 	}
 	
-	public Employee checkCredentials(String username, String password) {
-		List<Employee> employeeList = null;
+	public Customer checkCredentials(String username, String password) {
+		List<Customer> customerList = null;
 		
 		try {
-			employeeList = em.createNamedQuery("Employee.checkCredentials", Employee.class).setParameter(1, username).setParameter(2, password)
+			customerList = em.createNamedQuery("Customer.checkCredentials", Customer.class).setParameter(1, username).setParameter(2, password)
 					.getResultList();
-		} catch (PersistenceException e) {
+			
+		} catch(PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
 		
-		if (employeeList.isEmpty()) {
+		if (customerList.isEmpty()) {
 			return null;
 		}
-		else if (employeeList.size() == 1) {
-			return employeeList.get(0);
+		else if (customerList.size() == 1) {
+			return customerList.get(0);
 		}
 		else {
 			System.out.println("More than one user registered with same credentials");
 			return null;
 		}
 	}
-	
+
 }
