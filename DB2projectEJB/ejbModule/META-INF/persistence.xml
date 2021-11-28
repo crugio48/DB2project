@@ -5,5 +5,10 @@
 		<class>entities.Employee</class>
 		<class>entities.Customer</class>
 		<class>entities.ValidityPeriod</class>
+		<class>entities.ServicePackage</class>
+		<class>entities.OptionalProduct</class>
+		<class>entities.Service</class>
+		<class>entities.MobileAndFixedInternet</class>
+		<class>entities.MobilePhone</class>
 	</persistence-unit>
 </persistence>
