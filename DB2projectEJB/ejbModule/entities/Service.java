@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -35,7 +35,7 @@ public class Service implements Serializable {
 	
 
 	@ManyToMany(mappedBy = "services", fetch = FetchType.LAZY)
-	private Collection<ServicePackage> servicePackages;
+	private List<ServicePackage> servicePackages;
 
 	public int getService_id() {
 		return service_id;
@@ -77,14 +77,17 @@ public class Service implements Serializable {
 	}
 
 
-	public Collection<ServicePackage> getServicePackages() {
+	public List<ServicePackage> getServicePackages() {
 		return servicePackages;
 	}
 
 
-	public void setServicePackages(Collection<ServicePackage> servicePackages) {
+	public void setServicePackages(List<ServicePackage> servicePackages) {
 		this.servicePackages = servicePackages;
 	}
 	
+	public void addServicePackage(ServicePackage servicePackage) {
+		this.servicePackages.add(servicePackage);
+	}
 	
 }

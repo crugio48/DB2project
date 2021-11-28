@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -32,13 +32,13 @@ public class OptionalProduct implements Serializable {
 	@JoinTable(name = "optional_products_selected",
 		joinColumns = @JoinColumn(name = "optional_product_id"),
 		inverseJoinColumns = @JoinColumn(name = "order_id"))
-	private Collection<Order> orders;
+	private List<Order> orders;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "optional_products_available",
 		joinColumns = @JoinColumn(name = "optional_product_id"),
 		inverseJoinColumns = @JoinColumn(name = "service_package_id"))
-	private Collection<ServicePackage> servicePackages;
+	private List<ServicePackage> servicePackages;
 
 	public int getOptional_product_id() {
 		return optional_product_id;
@@ -64,21 +64,28 @@ public class OptionalProduct implements Serializable {
 		this.monthly_fee = monthly_fee;
 	}
 
-	public Collection<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Collection<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 
-	public Collection<ServicePackage> getServicePackages() {
+	public List<ServicePackage> getServicePackages() {
 		return servicePackages;
 	}
 
-	public void setServicePackages(Collection<ServicePackage> servicePackages) {
+	public void setServicePackages(List<ServicePackage> servicePackages) {
 		this.servicePackages = servicePackages;
 	}
 	
+	public void addOrder(Order order) {
+		this.orders.add(order);
+	}
+	
+	public void addServicePackage(ServicePackage servicePackage) {
+		this.servicePackages.add(servicePackage);
+	}
     
 }

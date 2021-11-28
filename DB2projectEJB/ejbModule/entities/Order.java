@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -46,7 +46,7 @@ public class Order implements Serializable {
 	private ServicePackage servicePackage;
 	
 	@ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY)
-	private Collection<OptionalProduct> optionalProducts;
+	private List<OptionalProduct> optionalProducts;
 
 	public int getOrder_id() {
 		return order_id;
@@ -120,13 +120,16 @@ public class Order implements Serializable {
 		this.servicePackage = servicePackage;
 	}
 
-	public Collection<OptionalProduct> getOptionalProducts() {
+	public List<OptionalProduct> getOptionalProducts() {
 		return optionalProducts;
 	}
 
-	public void setOptionalProducts(Collection<OptionalProduct> optionalProducts) {
+	public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
 		this.optionalProducts = optionalProducts;
 	}
 	
+	public void addOptionalProduct(OptionalProduct optionalProduct) {
+		this.optionalProducts.add(optionalProduct);
+	}
    
 }

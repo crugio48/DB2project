@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -26,17 +26,17 @@ public class ServicePackage implements Serializable {
 	private String name;
 	
 	@OneToMany(mappedBy = "servicePackage", fetch = FetchType.LAZY)
-	private Collection<Order> orders;
+	private List<Order> orders;
 	
 
 	@ManyToMany(mappedBy ="servicePackages", fetch = FetchType.LAZY)
-	private Collection<OptionalProduct> optionalProducts;
+	private List<OptionalProduct> optionalProducts;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "custom_service",
 		joinColumns = @JoinColumn(name = "service_package_id"),
 		inverseJoinColumns = @JoinColumn(name = "service_id"))
-	private Collection<Service> services;
+	private List<Service> services;
 
 	public int getService_package_id() {
 		return service_package_id;
@@ -54,28 +54,35 @@ public class ServicePackage implements Serializable {
 		this.name = name;
 	}
 
-	public Collection<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Collection<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 
-	public Collection<OptionalProduct> getOptionalProducts() {
+	public List<OptionalProduct> getOptionalProducts() {
 		return optionalProducts;
 	}
 
-	public void setOptionalProducts(Collection<OptionalProduct> optionalProducts) {
+	public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
 		this.optionalProducts = optionalProducts;
 	}
 
-	public Collection<Service> getServices() {
+	public List<Service> getServices() {
 		return services;
 	}
 
-	public void setServices(Collection<Service> services) {
+	public void setServices(List<Service> services) {
 		this.services = services;
 	}
 	
+	public void addService(Service service) {
+		this.services.add(service);
+	}
+	
+	public void addOptionalProduct(OptionalProduct optionalProduct) {
+		this.optionalProducts.add(optionalProduct);
+	}
 }

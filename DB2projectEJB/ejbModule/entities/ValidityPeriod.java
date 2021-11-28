@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -26,7 +26,7 @@ public class ValidityPeriod implements Serializable {
 	private int duration;
 	
 	@OneToMany(mappedBy = "validityPeriod", fetch = FetchType.LAZY)
-	Collection<Order> orders;
+	List<Order> orders;
 	
 
 	public int getValidity_period_id() {
@@ -53,12 +53,15 @@ public class ValidityPeriod implements Serializable {
 		this.duration = duration;
 	}
 
-	public Collection<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Collection<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
    
+	public void addOrder(Order order) {
+		this.orders.add(order);
+	}
 }
