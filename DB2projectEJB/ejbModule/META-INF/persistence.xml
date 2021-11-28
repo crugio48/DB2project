@@ -10,5 +10,7 @@
 		<class>entities.Service</class>
 		<class>entities.MobileAndFixedInternet</class>
 		<class>entities.MobilePhone</class>
+		<class>entities.Alert</class>
+		<class>entities.Order</class>
 	</persistence-unit>
 </persistence>
