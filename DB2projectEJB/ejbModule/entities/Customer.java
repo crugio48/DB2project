@@ -1,6 +1,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+
 import javax.persistence.*;
 
 
@@ -27,6 +29,12 @@ public class Customer implements Serializable {
 	private String email;
 	
 	private int times_rejected;
+	
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.MERGE, orphanRemoval = true)
+	Alert alert;
+
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	Collection<Order> orders;
 
 	public String getUsername() {
 		return username;
@@ -58,6 +66,22 @@ public class Customer implements Serializable {
 
 	public void setTimes_rejected(int times_rejected) {
 		this.times_rejected = times_rejected;
+	}
+
+	public Alert getAlert() {
+		return alert;
+	}
+
+	public void setAlert(Alert alert) {
+		this.alert = alert;
+	}
+
+	public Collection<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Collection<Order> orders) {
+		this.orders = orders;
 	}
 	
 	

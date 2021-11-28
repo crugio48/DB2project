@@ -22,20 +22,69 @@ public class Service implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int service_id;
+	private int service_id;
 	
-	String type;
+	private String type;
 
 	@OneToOne(mappedBy = "serviceMobilePhone")
-	MobilePhone mobilePhone;
+	private MobilePhone mobilePhone;
 	
 
 	@OneToOne(mappedBy = "serviceInternet")
-	MobileAndFixedInternet mobileAndFixedInternet;
+	private MobileAndFixedInternet mobileAndFixedInternet;
 	
 
 	@ManyToMany(mappedBy = "services", fetch = FetchType.LAZY)
-	Collection<ServicePackage> servicePackages;
+	private Collection<ServicePackage> servicePackages;
 
-   
+	public int getService_id() {
+		return service_id;
+	}
+
+
+	public void setService_id(int service_id) {
+		this.service_id = service_id;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public MobilePhone getMobilePhone() {
+		return mobilePhone;
+	}
+
+
+	public void setMobilePhone(MobilePhone mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+
+	public MobileAndFixedInternet getMobileAndFixedInternet() {
+		return mobileAndFixedInternet;
+	}
+
+
+	public void setMobileAndFixedInternet(MobileAndFixedInternet mobileAndFixedInternet) {
+		this.mobileAndFixedInternet = mobileAndFixedInternet;
+	}
+
+
+	public Collection<ServicePackage> getServicePackages() {
+		return servicePackages;
+	}
+
+
+	public void setServicePackages(Collection<ServicePackage> servicePackages) {
+		this.servicePackages = servicePackages;
+	}
+	
+	
 }

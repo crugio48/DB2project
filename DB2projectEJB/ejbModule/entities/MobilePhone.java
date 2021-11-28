@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Table(name = "mobile_phone", schema = "db2data")
 public class MobilePhone implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	public MobilePhone() {
@@ -20,18 +19,66 @@ public class MobilePhone implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int mobile_phone_id;
+	private int mobile_phone_id;
 
-	int n_minutes;
+	private int n_minutes;
 
-	int n_sms;
+	private int n_sms;
 
-	int fee_extra_minutes;
+	private int fee_extra_minutes;
 
-	int fee_extra_sms;
+	private int fee_extra_sms;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id")
-	Service serviceMobilePhone;
+	private Service serviceMobilePhone;
+	
+	public int getMobile_phone_id() {
+		return mobile_phone_id;
+	}
+
+	public void setMobile_phone_id(int mobile_phone_id) {
+		this.mobile_phone_id = mobile_phone_id;
+	}
+
+	public int getN_minutes() {
+		return n_minutes;
+	}
+
+	public void setN_minutes(int n_minutes) {
+		this.n_minutes = n_minutes;
+	}
+
+	public int getN_sms() {
+		return n_sms;
+	}
+
+	public void setN_sms(int n_sms) {
+		this.n_sms = n_sms;
+	}
+
+	public int getFee_extra_minutes() {
+		return fee_extra_minutes;
+	}
+
+	public void setFee_extra_minutes(int fee_extra_minutes) {
+		this.fee_extra_minutes = fee_extra_minutes;
+	}
+
+	public int getFee_extra_sms() {
+		return fee_extra_sms;
+	}
+
+	public void setFee_extra_sms(int fee_extra_sms) {
+		this.fee_extra_sms = fee_extra_sms;
+	}
+
+	public Service getServiceMobilePhone() {
+		return serviceMobilePhone;
+	}
+
+	public void setServiceMobilePhone(Service serviceMobilePhone) {
+		this.serviceMobilePhone = serviceMobilePhone;
+	}
 	
 }

@@ -25,7 +25,7 @@ public class ValidityPeriod implements Serializable {
 	
 	private int duration;
 	
-	@OneToMany(mappedBy = "ValidityPeriod", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "validityPeriod", fetch = FetchType.LAZY)
 	Collection<Order> orders;
 	
 
@@ -52,6 +52,13 @@ public class ValidityPeriod implements Serializable {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	
+
+	public Collection<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Collection<Order> orders) {
+		this.orders = orders;
+	}
    
 }

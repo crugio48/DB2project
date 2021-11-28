@@ -11,24 +11,56 @@ import javax.persistence.*;
 public class Alert implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
 	public Alert() {
 		super();
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int alert_id;
+	private int alert_id;
 	
-	int amount;
+	private int amount;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	Date date_and_time;
+	private Date date_and_time;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "username")
-	Customer customer;
+	private Customer customer;
 	
-	
+
+	public int getAlert_id() {
+		return alert_id;
+	}
+
+	public void setAlert_id(int alert_id) {
+		this.alert_id = alert_id;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public Date getDate_and_time() {
+		return date_and_time;
+	}
+
+	public void setDate_and_time(Date date_and_time) {
+		this.date_and_time = date_and_time;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	
    
 }
