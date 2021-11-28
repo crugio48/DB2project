@@ -5,7 +5,5 @@
 		<class>entities.Employee</class>
 		<class>entities.Customer</class>
 		<class>entities.ValidityPeriod</class>
-		<class>entities.Alert</class>
-		<class>entities.Order</class>
 	</persistence-unit>
 </persistence>
