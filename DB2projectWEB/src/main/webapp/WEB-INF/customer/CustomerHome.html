@@ -9,9 +9,9 @@
 </head>
 
 <body>
-	<h1 th:text="${'Welcome ' + session.customer.username + ' this is your home page'}">Home page</h1>
+	<h1 th:text="${'Welcome ' + session.customer.username + ' this is the home page'}">Home page</h1>
 	
-	<div align="right"> <a href="Logout">Logout</a> </div>
+	<div align="right"> <a href="Logout">Logout</a> </div>   <!-- make 2 custom links if user is logged or not -->
 	
 	<div class = "container">  <!-- flex container div -->
 	
@@ -85,7 +85,7 @@
 	
 	</div>
 	
-	<div class = "right">  <!-- right part of flex for the validity periods -->
+	<div class = "right">  <!-- right part of flex for the validity periods ang go to buy a service button -->
 		<div>Validity periods available:</div>
 		<table>
 			<thead>
@@ -104,6 +104,12 @@
 				
 			</tbody>
 		</table>
+		
+		<br><br><br>  <!-- blank space -->
+		<div>
+			<div>Click here if you want to purchase a service package</div>
+			<a href="GoToBuyService"> <button type="button">Buy a service package</button></a>
+		</div>
 	
 	
 	</div>
