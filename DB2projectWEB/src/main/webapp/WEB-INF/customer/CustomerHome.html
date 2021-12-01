@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<h1 th:text="${'Welcome ' + session.customer.username + ' this is your home page'}"></h1>
+	<h1 th:text="${'Welcome ' + session.customer.username + ' this is your home page'}">Home page</h1>
 	
 	<div align="right"> <a href="Logout">Logout</a> </div>
 	
@@ -28,26 +28,26 @@
 				<tr th:each="p : ${servicePackages}">      <!-- one row for every service package -->
 					<td th:text="${p.name}"> [servicePackage name]</td>
 					<td>
-						<p>Services included:</p>
+						<div>Services included:</div>
 						<table th:each="s : ${p.services}">  <!-- one table for every service in the package-->
 							<thead>
 								<tr>
 									<th>Service Type</th>
-									<th th:unless="&{s.type == 'fixed phone'}">Parameters</th>
+									<th th:unless="${s.type == 'fixed phone'}">Parameters</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td th:text="${s.type}">[service type]</td>
 									<td th:if="${s.type == 'mobile phone'}">
-										<p th:text="${'Minutes: ' + s.mobilePhone.n_minutes}"></p>
-										<p th:text="${'SMS: ' + s.mobilePhone.n_sms}"></p>
-										<p th:text="${'Fee for extra minutes: ' + s.mobilePhone.fee_extra_minutes + ' euros'}"></p>
-										<p th:text="${'Fee for extra sms's: ' + s.mobilePhone.fee_extra_sms + ' euros'}"></p>
+										<div th:text="${'Minutes: ' + s.mobilePhone.n_minutes}"></div>
+										<div th:text="${'SMS: ' + s.mobilePhone.n_sms}"></div>
+										<div th:text="${'Fee for extra minutes: ' + s.mobilePhone.fee_extra_minutes + ' euro/minute'}"></div>
+										<div th:text="${'Fee for extra sms: ' + s.mobilePhone.fee_extra_sms + ' euro/sms'}"></div>
 									</td>
 									<td th:if="${s.type == 'fixed internet' || s.type == 'mobile internet'}">
-										<p th:text="${'Gigabytes: ' + s.mobileAndFixedInternet.n_giga}"></p>
-										<p th:text="${'Fee for extra gigabytes: ' + s.mobileAndFixedInternet.fee_extra_giga + ' euros'}"></p>
+										<div th:text="${'Gigabytes: ' + s.mobileAndFixedInternet.n_giga}"></div>
+										<div th:text="${'Fee for extra gigabytes: ' + s.mobileAndFixedInternet.fee_extra_giga + ' euro/gigabyte'}"></div>
 									</td>
 								</tr>
 							
@@ -59,13 +59,14 @@
 							<thead>
 								<tr>
 									<th>Optional products available:</th>
+									<th>Extra fee</th>
 									
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="o : ${p.optionalProducts}">
-									<td th:text="${o.name}"> [name]</td>
-									<td th:text="${o.monthly_fee + ' euros'}">[cost]</td>
+									<td th:text="${o.name}">no optional products available</td>
+									<td th:text="${o.monthly_fee + ' euro/month'}"></td>
 								</tr>
 							
 							</tbody>
@@ -85,7 +86,7 @@
 	</div>
 	
 	<div class = "right">  <!-- right part of flex for the validity periods -->
-		<p>Validity periods available:</p>
+		<div>Validity periods available:</div>
 		<table>
 			<thead>
 				<tr> 
@@ -98,7 +99,7 @@
 				<tr th:each="v : ${validityPeriods}"> 
 					<td th:text = "${v.validity_period_id}"> 25 </td>
 					<td th:text = "${v.duration + ' months'}"> 5 months </td> 
-					<td th:text = "${v.monthly_fee + ' euros'}"> 1000€ </td>
+					<td th:text = "${v.monthly_fee + ' euro'}"> 1000€ </td>
 				</tr>
 				
 			</tbody>

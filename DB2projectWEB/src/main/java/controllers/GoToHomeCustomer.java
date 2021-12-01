@@ -17,7 +17,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import entities.ServicePackage;
 import entities.ValidityPeriod;
+import services.ServicePackageService;
 import services.ValidityPeriodService;
 
 
@@ -29,6 +31,9 @@ public class GoToHomeCustomer extends HttpServlet {
        
 	@EJB(name = "services/ValidityPeriodService")
 	ValidityPeriodService validityPeriodService;
+	
+	@EJB(name = "services/ServicePackageService")
+	ServicePackageService servicePackageService;
 	
     public GoToHomeCustomer() {
         super();
@@ -50,11 +55,12 @@ public class GoToHomeCustomer extends HttpServlet {
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		
 		
-		//Customer customer = (Customer) session.getAttribute("customer");
-		//List<ServicePackage> = servicePackages = null
-		//servicePackages = ...
+		List<ServicePackage> packagesList = null;
+		packagesList = servicePackageService.getAllAvailableServicePackages();
+		
 		List<ValidityPeriod> validityPeriodList = null;
 		validityPeriodList = validityPeriodService.getAllValidityPeriods();
+		
 		
 		String path = "/WEB-INF/customer/CustomerHome.html";
 		ServletContext servletContext = getServletContext();
@@ -63,6 +69,7 @@ public class GoToHomeCustomer extends HttpServlet {
 		//TODO add other info to thymeleaf context
 		
 		ctx.setVariable("validityPeriods", validityPeriodList);
+		ctx.setVariable("servicePackages", packagesList);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

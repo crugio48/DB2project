@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "service_package", schema = "db2data")
+@NamedQuery(name = "ServicePackage.findAll", query = "SELECT p FROM ServicePackage p")
 public class ServicePackage implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -29,10 +30,10 @@ public class ServicePackage implements Serializable {
 	private List<Order> orders;
 	
 
-	@ManyToMany(mappedBy ="servicePackages", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy ="servicePackages")
 	private List<OptionalProduct> optionalProducts;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(name = "custom_service",
 		joinColumns = @JoinColumn(name = "service_package_id"),
 		inverseJoinColumns = @JoinColumn(name = "service_id"))
