@@ -55,7 +55,7 @@
 							
 						</table>
 						
-						<table>  <!-- one table for the optional products of the service-->
+						<table th:unless="${p.optionalProducts.isEmpty()}">  <!-- one table for the optional products of the service-->
 							<thead>
 								<tr>
 									<th>Optional products available:</th>
@@ -64,6 +64,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								
 								<tr th:each="o : ${p.optionalProducts}">
 									<td th:text="${o.name}">no optional products available</td>
 									<td th:text="${o.monthly_fee + ' euro/month'}"></td>
