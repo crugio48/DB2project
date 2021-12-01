@@ -1,0 +1,13 @@
+.container {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;   /*this is the default but better to specify */
+}
+
+.container .left {
+	flex: 3;
+}
+
+.container .right {
+	flex: 1;
+}

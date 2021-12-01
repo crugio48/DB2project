@@ -2,149 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8"> <title>Customer Home Page</title>
+    <meta charset="UTF-8"> 
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/flex.css" th:href="@{/css/flex.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/tables.css" th:href="@{/css/tables.css}" />
+    <title>Customer Home Page</title>
 </head>
 
 <body>
 	<h1 th:text="${'Welcome ' + session.customer.username + ' this is your home page'}"></h1>
-	<div align="right"> <a href="Logout">Logout</a> </div>
-
-	<table border = "1px solid black">
-		<thead>
-			<tr> 
-				<th> ID </th>
-				<th> Duration </th>
-				<th> Monthly Cost</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="v : ${validityPeriods}"> 
-				<td th:text = "${v.validity_period_id}"> 25 </td>
-				<td th:text = "${v.duration + ' months'}"> 5 months </td> 
-				<td th:text = "${v.monthly_fee + ' euros'}"> 1000€ </td>
-			</tr>
-			
-		</tbody>
-	</table>
 	
-	<br>
-
-	<div th:if="${true}">
-		<table border = "1px solid black">
+	<div align="right"> <a href="Logout">Logout</a> </div>
+	
+	<div class = "container">  <!-- flex container div -->
+	
+	<div class = "left">  <!-- left part of flex for the service packages -->
+		
+		<table>
 			<thead>
 				<tr>
-				    <th>List of Service Package</th>
+					<th>List of Service Packages available</th>
 				</tr>
 			</thead>
+			
 			<tbody>
-		        <tr th:each="s : ${servicePackages}">
-				    <td th:text="${s.servicePackageName}">[service_package_name] 
-					<table>
-					    <thead> 
-							<tr> 
-							    <th><div align="left">Fixed Phone</div></th>
-							</tr>
-					    </thead>
-					    <tbody>
-						</tbody>
-					</table>
-                    <table>
-					    <thead> 
-							<tr> 
-					    		<th> <div align="left"> Mobile Phone </div></th>
-							</tr>
-					    </thead>
-					    <tbody>
-							<tr>
-								<td> 
-									<table border = "1px solid black">
-										<thead>
-											<tr>
-												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each= > <td>minutes</td> <td>#minuti</td> <td>#prezzo</td> </tr>
-											<tr> <td>SMS</td> <td>#minuti</td> <td>#prezzo</td> </tr>
-											<tr> <td>Minutes Fees</td> <td>#minuti</td> <td>#prezzo</td> </tr>
-											<tr> <td>SMS Fees</td> <td>#minuti</td> <td>#prezzo</td> </tr>
-										</tbody>
-									</table>	
-								</td>
-								</tr>
-							</tbody>
-					</table>
-					<table>
-					    <thead> 
-							<tr> 
-					    		<th> <div align="left"> Mobile Internet </div></th>
-							</tr>
-					    </thead>
-					    <tbody>
-							<tr>
-								<td> 
-									<table border = "1px solid black">
-										<thead>
-											<tr>
-												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each= > <td>Gigabytes</td> <td>#giga</td> <td></td> </tr>
-											<tr> <td>Fee per Gigabytes</td> <td></td> <td>#prezzo</td> </tr>
-										</tbody>
-									</table>	
-								</td>
-								</tr>
-							</tbody>
-					</table>
-					<table>
-					    <thead> 
-							<tr> 
-					    		<th><div align="left">Fixed Internet</div></th>
-							</tr>
-					    </thead>
-					    <tbody>
-							<tr>
-								<td> 
-									<table border = "1px solid black">
-										<thead>
-											<tr>
-												<th>Feature Name</th> <th>Quantity</th> <th>Price</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each= > <td>Gigabytes</td> <td>#giga</td> <td></td> </tr>
-											<tr> <td>Fee per Gigabytes</td> <td></td> <td>#prezzo</td> </tr>
-										</tbody>
-									</table>	
-								</td>
-								</tr>
-							</tbody>
-					</table>
-				</tr>
-				<tr th:text="Optional Products:">
-					<td> 
-						<table border = "1px solid black"> 
-							<thead> 
-								<tr> 
-									<th>Optional Product Name</th>
-									<th>Monthly Fee</th>
+				<tr th:each="p : ${servicePackages}">      <!-- one row for every service package -->
+					<td th:text="${p.name}"> [servicePackage name]</td>
+					<td>
+						<p>Services included:</p>
+						<table th:each="s : ${p.services}">  <!-- one table for every service in the package-->
+							<thead>
+								<tr>
+									<th>Service Type</th>
+									<th th:unless="&{s.type == 'fixed phone'}">Parameters</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td> [nome_OP_1]</td>
-									<td> [prezzo_OP_1]</td>
+									<td th:text="${s.type}">[service type]</td>
+									<td th:if="${s.type == 'mobile phone'}">
+										<p th:text="${'Minutes: ' + s.mobilePhone.n_minutes}"></p>
+										<p th:text="${'SMS: ' + s.mobilePhone.n_sms}"></p>
+										<p th:text="${'Fee for extra minutes: ' + s.mobilePhone.fee_extra_minutes + ' euros'}"></p>
+										<p th:text="${'Fee for extra sms's: ' + s.mobilePhone.fee_extra_sms + ' euros'}"></p>
+									</td>
+									<td th:if="${s.type == 'fixed internet' || s.type == 'mobile internet'}">
+										<p th:text="${'Gigabytes: ' + s.mobileAndFixedInternet.n_giga}"></p>
+										<p th:text="${'Fee for extra gigabytes: ' + s.mobileAndFixedInternet.fee_extra_giga + ' euros'}"></p>
+									</td>
 								</tr>
+							
 							</tbody>
+							
+						</table>
+						
+						<table>  <!-- one table for the optional products of the service-->
+							<thead>
+								<tr>
+									<th>Optional products available:</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="o : ${p.optionalProducts}">
+									<td th:text="${o.name}"> [name]</td>
+									<td th:text="${o.monthly_fee + ' euros'}">[cost]</td>
+								</tr>
+							
+							</tbody>
+						
 						</table>
 					</td>
-					
+				
+				
 				</tr>
+			
 			</tbody>
-			</table>
+		
+		
+		</table>
+		
+	
 	</div>
+	
+	<div class = "right">  <!-- right part of flex for the validity periods -->
+		<p>Validity periods available:</p>
+		<table>
+			<thead>
+				<tr> 
+					<th> ID </th>
+					<th> Duration </th>
+					<th> Monthly Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="v : ${validityPeriods}"> 
+					<td th:text = "${v.validity_period_id}"> 25 </td>
+					<td th:text = "${v.duration + ' months'}"> 5 months </td> 
+					<td th:text = "${v.monthly_fee + ' euros'}"> 1000€ </td>
+				</tr>
+				
+			</tbody>
+		</table>
+	
+	
+	</div>
+	
+	
+	</div>
+
 	
 </body>
 </html>
