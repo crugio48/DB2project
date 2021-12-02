@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class ValidityPeriod implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int validity_period_id;
 	
-	private int monthly_fee;
+	private BigDecimal monthly_fee;
 	
 	private int duration;
 	
@@ -37,11 +38,11 @@ public class ValidityPeriod implements Serializable {
 		this.validity_period_id = validity_period_id;
 	}
 
-	public int getMonthly_fee() {
+	public BigDecimal getMonthly_fee() {
 		return monthly_fee;
 	}
 
-	public void setMonthly_fee(int monthly_fee) {
+	public void setMonthly_fee(BigDecimal monthly_fee) {
 		this.monthly_fee = monthly_fee;
 	}
 

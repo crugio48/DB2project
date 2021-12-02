@@ -65,9 +65,7 @@ public class GoToHomeCustomer extends HttpServlet {
 		String path = "/WEB-INF/customer/CustomerHome.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		
-		//TODO add other info to thymeleaf context
-		
+				
 		ctx.setVariable("validityPeriods", validityPeriodList);
 		ctx.setVariable("servicePackages", packagesList);
 		
