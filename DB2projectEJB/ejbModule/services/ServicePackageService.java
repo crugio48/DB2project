@@ -35,4 +35,9 @@ public class ServicePackageService {
 			return packagesList;
 		}
 	}
+	
+	
+	public boolean doesServicePackageExist(int servicePackageId) {
+		return (em.find(ServicePackage.class, servicePackageId) != null);
+	}
 }

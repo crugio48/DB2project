@@ -109,7 +109,7 @@
 		<br><br><br>  <!-- blank space -->
 		<div>
 			<div>Click here if you want to purchase a service package</div>
-			<a href="GoToBuyService"> <button type="button">Buy a service package</button></a>
+			<a th:href="@{/GoToBuyService(servicePackageId=${servicePackages[0].service_package_id})}"> <button type="button">Buy a service package</button></a>
 		</div>
 	
 	
