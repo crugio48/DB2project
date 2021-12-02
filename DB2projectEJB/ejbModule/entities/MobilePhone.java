@@ -1,6 +1,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 /**
@@ -25,9 +27,9 @@ public class MobilePhone implements Serializable {
 
 	private int n_sms;
 
-	private int fee_extra_minutes;
+	private BigDecimal fee_extra_minutes;
 
-	private int fee_extra_sms;
+	private BigDecimal fee_extra_sms;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id")
@@ -57,19 +59,19 @@ public class MobilePhone implements Serializable {
 		this.n_sms = n_sms;
 	}
 
-	public int getFee_extra_minutes() {
+	public BigDecimal getFee_extra_minutes() {
 		return fee_extra_minutes;
 	}
 
-	public void setFee_extra_minutes(int fee_extra_minutes) {
+	public void setFee_extra_minutes(BigDecimal fee_extra_minutes) {
 		this.fee_extra_minutes = fee_extra_minutes;
 	}
 
-	public int getFee_extra_sms() {
+	public BigDecimal getFee_extra_sms() {
 		return fee_extra_sms;
 	}
 
-	public void setFee_extra_sms(int fee_extra_sms) {
+	public void setFee_extra_sms(BigDecimal fee_extra_sms) {
 		this.fee_extra_sms = fee_extra_sms;
 	}
 

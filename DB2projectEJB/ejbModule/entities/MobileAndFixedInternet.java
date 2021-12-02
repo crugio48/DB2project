@@ -1,6 +1,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,7 @@ public class MobileAndFixedInternet implements Serializable {
 
 	private int n_giga;
 
-	private int fee_extra_giga;
+	private BigDecimal fee_extra_giga;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id")
@@ -42,11 +44,11 @@ public class MobileAndFixedInternet implements Serializable {
 		this.n_giga = n_giga;
 	}
 
-	public int getFee_extra_giga() {
+	public BigDecimal getFee_extra_giga() {
 		return fee_extra_giga;
 	}
 
-	public void setFee_extra_giga(int fee_extra_giga) {
+	public void setFee_extra_giga(BigDecimal fee_extra_giga) {
 		this.fee_extra_giga = fee_extra_giga;
 	}
 

@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ public class Order implements Serializable {
 	
 	private String status;
 	
-	private int total_value;
+	private BigDecimal total_value;
 	
 	@Temporal(TemporalType.DATE)
 	private Date deactivation_date;
@@ -80,11 +81,11 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public int getTotal_value() {
+	public BigDecimal getTotal_value() {
 		return total_value;
 	}
 
-	public void setTotal_value(int total_value) {
+	public void setTotal_value(BigDecimal total_value) {
 		this.total_value = total_value;
 	}
 

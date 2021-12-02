@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Alert implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int alert_id;
 	
-	private int amount;
+	private BigDecimal amount;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_and_time;
@@ -38,11 +39,11 @@ public class Alert implements Serializable {
 		this.alert_id = alert_id;
 	}
 
-	public int getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

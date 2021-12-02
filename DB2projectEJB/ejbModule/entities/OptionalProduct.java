@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class OptionalProduct implements Serializable {
 	
 	private String name;
 	
-	private int monthly_fee;
+	private BigDecimal monthly_fee;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "optional_products_selected",
@@ -56,11 +57,11 @@ public class OptionalProduct implements Serializable {
 		this.name = name;
 	}
 
-	public int getMonthly_fee() {
+	public BigDecimal getMonthly_fee() {
 		return monthly_fee;
 	}
 
-	public void setMonthly_fee(int monthly_fee) {
+	public void setMonthly_fee(BigDecimal monthly_fee) {
 		this.monthly_fee = monthly_fee;
 	}
 
