@@ -88,6 +88,13 @@ public class CheckLogin extends HttpServlet {
 		else if (employee == null && customer != null) {
 			
 			session.setAttribute("customer", customer);
+			
+			if (session.getAttribute("tempOrder") != null) {
+				path = getServletContext().getContextPath() + "/GoToConfirmationAfterLogin";
+				response.sendRedirect(path);
+				return;
+			}
+			
 			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
 			response.sendRedirect(path);
 			

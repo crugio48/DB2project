@@ -7,11 +7,13 @@ public class TempOrder {
 	private int servicePackageId;
 	private int validityPeriodId;
 	private Map<Integer,Boolean>optionalsSelected;
+	private double totalAmount;
 	
-	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected) {
+	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, double totalAmount) {
 		this.servicePackageId = servicePackageId;
 		this.validityPeriodId = validityPeriodId;
 		this.optionalsSelected = optionalsSelected;
+		this.totalAmount = totalAmount;
 	}
 	
 	public int getServicePackageId() {
@@ -32,6 +34,16 @@ public class TempOrder {
 	public void setOptionalsSelected(Map<Integer, Boolean> optionalsSelected) {
 		this.optionalsSelected = optionalsSelected;
 	}
+
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	
+	
 	
 	
 	

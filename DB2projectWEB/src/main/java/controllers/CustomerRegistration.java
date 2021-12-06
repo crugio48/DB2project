@@ -74,6 +74,13 @@ public class CustomerRegistration extends HttpServlet {
 		}
 		else {
 			session.setAttribute("customer", customer);
+			
+			if (session.getAttribute("tempOrder") != null) {
+				path = getServletContext().getContextPath() + "/GoToConfirmationAfterLogin";
+				response.sendRedirect(path);
+				return;
+			}
+			
 			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
 			response.sendRedirect(path);
 		}

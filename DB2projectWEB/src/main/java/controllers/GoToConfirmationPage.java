@@ -106,11 +106,6 @@ public class GoToConfirmationPage extends HttpServlet {
 		}
 		
 		
-		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected);
-		
-		session.setAttribute("tempOrder", tempOrder);  //setting the tempOrder in the session, if there was already another one it gets replaced
-		
-		
 		float totalAmount = 0;
 		
 		totalAmount += validityPeriodSelected.getDuration() * validityPeriodSelected.getMonthly_fee().floatValue();
@@ -121,6 +116,10 @@ public class GoToConfirmationPage extends HttpServlet {
 				totalAmount += p.getMonthly_fee().floatValue() * validityPeriodSelected.getDuration();
 			}
 		}
+		
+		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected, totalAmount);
+		
+		session.setAttribute("tempOrder", tempOrder);  //setting the tempOrder in the session, if there was already another one it gets replaced
 		
 		
 		String path = "/WEB-INF/customer/ConfirmationPage.html";
