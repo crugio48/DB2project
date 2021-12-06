@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Employee Home page</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" media="all" href="../../css/flex.css" th:href="@{/css/flex.css}" />
+	<title>Employee Home page</title>
 </head>
 <body>
 	<div align="right">
@@ -10,7 +11,55 @@
 	</div>
 	
 	<h1 th:text="${'Welcome ' + session.employee.username + ' this is your home page'}"></h1>
+	
+	<div class = "container">
+	
+	<div class = "left">
 
-
+		<h1>Create a Service Package:</h1>
+		
+		<form action="CreateServicePackage" method="POST">
+		
+			Name of the Service Package: <input type="text" name="service_package_name" required> <br> <br>
+			
+			Mobile Phone <input type = "checkbox" name = "mobile phone" text =  "mobile phone"> <br>
+				Number of minutes: <input type="text" name="mobile_minutes" > <br>
+				Number of sms: <input type="text" name="mobile_sms" > <br>
+				Fee per minutes: <input type="text" name="mobile_fee_minutes" > <br>
+				Fee per sms: <input type="text" name="mobile_fee_sms"> <br> <br>
+				
+			Mobile Internet <input type = "checkbox" name = "mobile internet" text =  "mobile internet"> <br>
+				Number of gigabytes: <input type="text" name="mobile_gigabytes" > <br>
+				Fee for extra gigabytes: <input type="text" name="mobile_gigabytes" > <br> <br>
+				
+			Fixed Internet <input type = "checkbox" name = "fixed internet" text =  "fixed internet"> <br>
+				Number of gigabytes: <input type="text" name="fixed_gigabytes" > <br>
+				Fee for extra gigabytes: <input type="text" name="fixed_gigabytes" > <br> <br>
+			
+			Fixed Phone <input type = "checkbox" name = "fixed phone" text =  "fixed phone"> <br> <br>
+			
+			
+			<div> Select the Optional Products that you want in the package: </div>
+			<div th:each = "o : ${allOptionalProducts}">
+				<input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' - monthly fee: ' + o.monthly_fee + ' euro'}">
+			</div><br>
+			
+			<input type="submit" value="Create Service Package">
+		</form>
+		
+	</div>
+	
+	<div class = "right">
+		<h1>Create an optional product</h1>
+		
+		<form action="CreateOptionalProduct" method="POST">
+		
+		Name of the Optional Product: <input type="text" name="optional_product_name" required> <br>
+		Cost of the Optional Product: <input type="text" name="optional_product_name" required> <br> <br>
+		
+		<input type="submit" value="Create Optional Product">
+		</form>
+	</div>
+	</div>
 </body>
 </html>

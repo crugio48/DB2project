@@ -12,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "optional_product", schema = "db2data")
+@NamedQuery(name = "OptionalProduct.findAll", query = "SELECT o FROM OptionalProduct o")
 public class OptionalProduct implements Serializable {
 
 	

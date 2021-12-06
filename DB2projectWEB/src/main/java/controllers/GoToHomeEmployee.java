@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import entities.Employee;
+import entities.OptionalProduct;
+import services.OptionalProductService;
 
 
 
@@ -24,8 +28,8 @@ public class GoToHomeEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
        
-	//TODO add EJB services
-   
+	@EJB(name = "services/OptionalProductService")
+	OptionalProductService optionalProductService;
     public GoToHomeEmployee() {
         super();
     }
@@ -45,17 +49,16 @@ public class GoToHomeEmployee extends HttpServlet {
 		//the path for any type of error
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		
+		List<OptionalProduct> allOptionalProducts = null;
+		allOptionalProducts = optionalProductService.getAllOptionalProducts();
 		
-		
-		
-		//TODO use services to retrieve database info
 		
 		
 		String path = "/WEB-INF/employee/EmployeeHome.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		//TODO add other info to thymeleaf context
+		ctx.setVariable("allOptionalProducts", allOptionalProducts);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		
