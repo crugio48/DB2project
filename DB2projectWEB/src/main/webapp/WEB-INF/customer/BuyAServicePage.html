@@ -71,8 +71,10 @@
 		<div> Optional Products: </div>
 		
 		<div th:each = "o : ${servicePackageSelected.optionalProducts}">
-			<input  type = "checkbox" th:name = ${o.optional_product_id} th:text = "${o.name + ' monthly fee: ' + o.monthly_fee + ' euro'}">
+			<input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' monthly fee: ' + o.monthly_fee + ' euro'}">
 		</div>
+		
+		<input type ="hidden" name ="servicePackageId" th:value="${servicePackageSelected.service_package_id}">
 		<br>
 		<input type="submit" value="confirm">
 		

@@ -41,7 +41,7 @@ public class Logout extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 			
-		String path = "/WEB-INF/index.html";
+		String path = "/index.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		

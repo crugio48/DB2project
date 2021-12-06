@@ -49,7 +49,7 @@ public class GoToBuyService extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String loginpath = request.getServletContext().getContextPath() + "/Logout";
+		//String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		String homePagePath = request.getServletContext().getContextPath() + "/GoToHomeCustomer";
 		
 		HttpSession session = request.getSession();

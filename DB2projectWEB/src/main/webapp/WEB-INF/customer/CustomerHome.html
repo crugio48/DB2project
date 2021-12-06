@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<h1 th:text="${'Welcome ' + session.customer.username + ' this is the home page'}">Home page</h1>
+	<h1 th:if="${session.customer}" th:text="${'Welcome ' + session.customer.username + ' this is the home page'}">Home page</h1>
 	
 	<div align="right"> <a href="Logout">Logout</a> </div>   <!-- make 2 custom links if user is logged or not -->
 	

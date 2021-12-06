@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"> 
+    <title>Confirmation Page</title>
+</head>
+
+<body>
+
+	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name}">Package Selected:</h1>
+		
+		<div>Services included:</div>
+		<table th:each="s : ${servicePackageSelected.services}">  <!-- one table for every service in the package-->
+			<thead>
+				<tr>
+					<th>Service Type</th>
+					<th th:unless="${s.type == 'fixed phone'}">Parameters</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${s.type}">[service type]</td>
+					<td th:if="${s.type == 'mobile phone'}">
+						<div th:text="${'Minutes: ' + s.mobilePhone.n_minutes}"></div>
+						<div th:text="${'SMS: ' + s.mobilePhone.n_sms}"></div>
+						<div th:text="${'Fee for extra minutes: ' + s.mobilePhone.fee_extra_minutes + ' euro/minute'}"></div>
+						<div th:text="${'Fee for extra sms: ' + s.mobilePhone.fee_extra_sms + ' euro/sms'}"></div>
+					</td>
+					<td th:if="${s.type == 'fixed internet' || s.type == 'mobile internet'}">
+						<div th:text="${'Gigabytes: ' + s.mobileAndFixedInternet.n_giga}"></div>
+						<div th:text="${'Fee for extra gigabytes: ' + s.mobileAndFixedInternet.fee_extra_giga + ' euro/gigabyte'}"></div>
+					</td>
+				</tr>
+			
+			</tbody>
+			
+		</table>
+		
+		<br>
+		<br>
+		<div th:text="${'duration: ' + validityPeriodSelected.duration + ' months, monthly fee: ' + validityPeriodSelected.monthly_fee + ' euro'}"></div>
+		
+		<br>
+		<div>Optionals selected:</div>
+		<div th:each="o : ${servicePackageSelected.optionalProducts}" th:if="${optionalsSelected.get(o.optional_product_id)}"
+		th:text="${o.name + ' , cost: ' + o.monthly_fee + ' euro/month'}">
+		</div>
+		
+		<br>
+		<br>
+		
+		<div th:text="${'Total amount to be payed in advance: ' + totalAmount + ' euro'}"></div>
+		
+		<br>
+		<br>
+		
+		<div th:if="${session.customer}">
+			<a th:href="@{/BuyTheServicePackage}"> <button type="button">Buy</button></a>
+		</div>
+		
+		<div th:unless="${session.customer}">
+			<a th:href="@{/index.html}"> <button type="button">Go to login/registration</button></a>
+		</div>
+
+</body>
+
+</html>

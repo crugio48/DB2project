@@ -36,4 +36,9 @@ public class ValidityPeriodService {
 		}
 		
 	}
+	
+	
+	public ValidityPeriod getValidityPeriod(int validityPeriodId) {
+		return em.find(ValidityPeriod.class, validityPeriodId);
+	}
 }
