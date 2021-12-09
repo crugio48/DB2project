@@ -31,9 +31,6 @@ public class Order implements Serializable {
 	
 	private BigDecimal total_value;
 	
-	@Temporal(TemporalType.DATE)
-	private Date deactivation_date;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "username")
 	private Customer customer;
@@ -87,14 +84,6 @@ public class Order implements Serializable {
 
 	public void setTotal_value(BigDecimal total_value) {
 		this.total_value = total_value;
-	}
-
-	public Date getDeactivation_date() {
-		return deactivation_date;
-	}
-
-	public void setDeactivation_date(Date deactivation_date) {
-		this.deactivation_date = deactivation_date;
 	}
 
 	public Customer getCustomer() {
