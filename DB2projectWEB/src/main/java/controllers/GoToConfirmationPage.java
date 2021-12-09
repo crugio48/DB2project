@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,10 @@ public class GoToConfirmationPage extends HttpServlet {
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 	}
+    
+    private Date getMeYesterday() {
+		return new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//the path for any type of error
@@ -60,13 +66,25 @@ public class GoToConfirmationPage extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		int servicePackageId;
-		int validityPeriodId;
+		int servicePackageId = 0;
+		int validityPeriodId = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = null;
 		
 		try {
 			servicePackageId = Integer.parseInt(request.getParameter("servicePackageId"));
 			validityPeriodId = Integer.parseInt(request.getParameter("validityPeriodId"));
+			startDate = (Date) sdf.parse(request.getParameter("startDate"));
+			
 		} catch(NumberFormatException | NullPointerException e) {
+			response.sendRedirect(homePagePath);
+			return;
+		} catch (ParseException e) {
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		if (getMeYesterday().after(startDate)) {
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -117,7 +135,7 @@ public class GoToConfirmationPage extends HttpServlet {
 			}
 		}
 		
-		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected, totalAmount);
+		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected, totalAmount, startDate);
 		
 		session.setAttribute("tempOrder", tempOrder);  //setting the tempOrder in the session, if there was already another one it gets replaced
 		
@@ -131,6 +149,7 @@ public class GoToConfirmationPage extends HttpServlet {
 		ctx.setVariable("validityPeriodSelected", validityPeriodSelected);
 		ctx.setVariable("optionalsSelected", optionalsSelected);
 		ctx.setVariable("totalAmount", totalAmount);
+		ctx.setVariable("startDate", startDate);
 		
 		
 		templateEngine.process(path, ctx, response.getWriter());

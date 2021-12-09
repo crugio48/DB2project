@@ -88,6 +88,7 @@ public class GoToConfirmationAfterLogin extends HttpServlet {
 		ctx.setVariable("validityPeriodSelected", validityPeriodSelected);
 		ctx.setVariable("optionalsSelected", tempOrder.getOptionalsSelected());
 		ctx.setVariable("totalAmount", tempOrder.getTotalAmount());
+		ctx.setVariable("startDate", tempOrder.getStartDate());
 		
 		
 		templateEngine.process(path, ctx, response.getWriter());

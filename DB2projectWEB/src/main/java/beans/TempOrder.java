@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.Date;
 import java.util.Map;
 
 public class TempOrder {
@@ -8,12 +9,14 @@ public class TempOrder {
 	private int validityPeriodId;
 	private Map<Integer,Boolean>optionalsSelected;
 	private double totalAmount;
+	private Date startDate;
 	
-	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, double totalAmount) {
+	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, double totalAmount, Date startDate) {
 		this.servicePackageId = servicePackageId;
 		this.validityPeriodId = validityPeriodId;
 		this.optionalsSelected = optionalsSelected;
 		this.totalAmount = totalAmount;
+		this.startDate = startDate;
 	}
 	
 	public int getServicePackageId() {
@@ -41,6 +44,14 @@ public class TempOrder {
 
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	
 	

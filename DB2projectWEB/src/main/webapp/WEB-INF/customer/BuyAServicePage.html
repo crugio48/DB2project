@@ -73,8 +73,14 @@
 		<div th:each = "o : ${servicePackageSelected.optionalProducts}">
 			<input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' monthly fee: ' + o.monthly_fee + ' euro'}">
 		</div>
+		<br>
+		
+		Activation Day: <input type="date" name="startDate"
+						th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+						placeholder="dd-mm-yyyy" required />
 		
 		<input type ="hidden" name ="servicePackageId" th:value="${servicePackageSelected.service_package_id}">
+		<br>
 		<br>
 		<input type="submit" value="confirm">
 		
