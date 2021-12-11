@@ -21,22 +21,24 @@
 		<form action="CreateServicePackage" method="POST">
 		
 			Name of the Service Package: <input type="text" name="service_package_name" required> <br> <br>
-			
-			Mobile Phone <input type = "checkbox" name = "mobile phone" text =  "mobile phone"> <br>
-				Number of minutes: <input type="text" name="mobile_minutes" > <br>
-				Number of sms: <input type="text" name="mobile_sms" > <br>
-				Fee per minutes: <input type="text" name="mobile_fee_minutes" > <br>
-				Fee per sms: <input type="text" name="mobile_fee_sms"> <br> <br>
+			<br>
+			<div>Specify the services you want to insert:</div>
+			<br>
+			Mobile Phone <input type = "checkbox" value = "true" name = "mobile_phone"> <br>
+				Number of minutes: <input type="text" name="mobile_phone_minutes" > <br>
+				Number of sms: <input type="text" name="mobile_phone_sms" > <br>
+				Fee per minutes: <input type="text" name="mobile_phone_fee_minutes" > <br>
+				Fee per sms: <input type="text" name="mobile_phone_fee_sms"> <br> <br>
 				
-			Mobile Internet <input type = "checkbox" name = "mobile internet" text =  "mobile internet"> <br>
+			Mobile Internet <input type = "checkbox" value = "true" name = "mobile_internet"> <br>
 				Number of gigabytes: <input type="text" name="mobile_gigabytes" > <br>
-				Fee for extra gigabytes: <input type="text" name="mobile_gigabytes" > <br> <br>
+				Fee for extra gigabytes: <input type="text" name="mobile_fee_gigabytes" > <br> <br>
 				
-			Fixed Internet <input type = "checkbox" name = "fixed internet" text =  "fixed internet"> <br>
+			Fixed Internet <input type = "checkbox" value = "true" name = "fixed_internet"> <br>
 				Number of gigabytes: <input type="text" name="fixed_gigabytes" > <br>
-				Fee for extra gigabytes: <input type="text" name="fixed_gigabytes" > <br> <br>
+				Fee for extra gigabytes: <input type="text" name="fixed_fee_gigabytes" > <br> <br>
 			
-			Fixed Phone <input type = "checkbox" name = "fixed phone" text =  "fixed phone"> <br> <br>
+			Fixed Phone <input type = "checkbox" value = "true" name = "fixed_phone"> <br> <br>
 			
 			
 			<div> Select the Optional Products that you want in the package: </div>
@@ -55,7 +57,7 @@
 		<form action="CreateOptionalProduct" method="POST">
 		
 		Name of the Optional Product: <input type="text" name="optional_product_name" required> <br>
-		Cost of the Optional Product: <input type="text" name="optional_product_name" required> <br> <br>
+		Cost of the Optional Product: <input type="text" name="optional_product_cost" required> <br> <br>
 		
 		<input type="submit" value="Create Optional Product">
 		</form>
