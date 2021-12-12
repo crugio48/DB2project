@@ -19,6 +19,14 @@ public class MobilePhone implements Serializable {
 		super();
 	}
 	
+	public MobilePhone(int n_minutes, int n_sms, BigDecimal fee_extra_minutes, BigDecimal fee_extra_sms) {
+		this.n_minutes = n_minutes;
+		this.n_sms = n_sms;
+		this.fee_extra_minutes = fee_extra_minutes;
+		this.fee_extra_sms = fee_extra_sms;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int mobile_phone_id;

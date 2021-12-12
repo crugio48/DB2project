@@ -49,6 +49,8 @@ public class GoToHomeEmployee extends HttpServlet {
 		//the path for any type of error
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		
+		HttpSession session = request.getSession();
+		
 		List<OptionalProduct> allOptionalProducts = null;
 		allOptionalProducts = optionalProductService.getAllOptionalProducts();
 		
@@ -59,6 +61,11 @@ public class GoToHomeEmployee extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		ctx.setVariable("allOptionalProducts", allOptionalProducts);
+		
+		if(session.getAttribute("errorMsg") != null) {
+			ctx.setVariable("errorMsg", session.getAttribute("errorMsg"));
+			session.removeAttribute("errorMsg");
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
@@ -11,13 +12,22 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "service_package", schema = "db2data")
-@NamedQuery(name = "ServicePackage.findAll", query = "SELECT p FROM ServicePackage p")
+@NamedQueries({
+	@NamedQuery(name = "ServicePackage.findAll", query = "SELECT p FROM ServicePackage p"),
+	@NamedQuery(name = "ServicePackage.findByName", query = "SELECT p FROM ServicePackage p WHERE p.name = ?1") 
+	})
 public class ServicePackage implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	public ServicePackage() {
 		super();
+	}
+	
+	public ServicePackage(String name) {
+		this.name = name;
+		this.optionalProducts = new ArrayList();
+		this.services = new ArrayList();
 	}
 	
 	@Id
@@ -33,10 +43,8 @@ public class ServicePackage implements Serializable {
 	@ManyToMany(mappedBy ="servicePackages")
 	private List<OptionalProduct> optionalProducts;
 	
-	@ManyToMany
-	@JoinTable(name = "custom_service",
-		joinColumns = @JoinColumn(name = "service_package_id"),
-		inverseJoinColumns = @JoinColumn(name = "service_id"))
+	
+	@OneToMany(mappedBy = "myServicePackage", cascade = CascadeType.PERSIST)
 	private List<Service> services;
 
 	public int getService_package_id() {
@@ -70,6 +78,10 @@ public class ServicePackage implements Serializable {
 	public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
 		this.optionalProducts = optionalProducts;
 	}
+	
+	public void addOptionalProduct(OptionalProduct optionalProduct) {
+		this.optionalProducts.add(optionalProduct);
+	}
 
 	public List<Service> getServices() {
 		return services;
@@ -81,9 +93,6 @@ public class ServicePackage implements Serializable {
 	
 	public void addService(Service service) {
 		this.services.add(service);
-	}
-	
-	public void addOptionalProduct(OptionalProduct optionalProduct) {
-		this.optionalProducts.add(optionalProduct);
+		service.setMyServicePackage(this);
 	}
 }

@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,22 +19,27 @@ public class Service implements Serializable {
 		super();
 	}
 	
+	public Service(String type) {
+		this.type = type;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int service_id;
 	
 	private String type;
 
-	@OneToOne(mappedBy = "serviceMobilePhone")
+	@OneToOne(mappedBy = "serviceMobilePhone", cascade = CascadeType.PERSIST)
 	private MobilePhone mobilePhone;
 	
 
-	@OneToOne(mappedBy = "serviceInternet")
+	@OneToOne(mappedBy = "serviceInternet", cascade = CascadeType.PERSIST)
 	private MobileAndFixedInternet mobileAndFixedInternet;
 	
 
-	@ManyToMany(mappedBy = "services", fetch = FetchType.LAZY)
-	private List<ServicePackage> servicePackages;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_package_id")
+	private ServicePackage myServicePackage;
 
 	public int getService_id() {
 		return service_id;
@@ -64,6 +68,7 @@ public class Service implements Serializable {
 
 	public void setMobilePhone(MobilePhone mobilePhone) {
 		this.mobilePhone = mobilePhone;
+		mobilePhone.setServiceMobilePhone(this);
 	}
 
 
@@ -74,20 +79,21 @@ public class Service implements Serializable {
 
 	public void setMobileAndFixedInternet(MobileAndFixedInternet mobileAndFixedInternet) {
 		this.mobileAndFixedInternet = mobileAndFixedInternet;
+		mobileAndFixedInternet.setServiceInternet(this);
 	}
 
 
-	public List<ServicePackage> getServicePackages() {
-		return servicePackages;
+	public ServicePackage getMyServicePackage() {
+		return myServicePackage;
 	}
 
 
-	public void setServicePackages(List<ServicePackage> servicePackages) {
-		this.servicePackages = servicePackages;
+	public void setMyServicePackage(ServicePackage myServicePackage) {
+		this.myServicePackage = myServicePackage;
 	}
 	
-	public void addServicePackage(ServicePackage servicePackage) {
-		this.servicePackages.add(servicePackage);
-	}
+	
+	
+	
 	
 }

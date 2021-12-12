@@ -21,6 +21,8 @@ public class Alert implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int alert_id;
 	
+	private String email;
+	
 	private BigDecimal amount;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,6 +64,15 @@ public class Alert implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
    
 }

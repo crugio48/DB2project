@@ -16,6 +16,12 @@ public class MobileAndFixedInternet implements Serializable {
 		super();
 	}
 	
+	public MobileAndFixedInternet(int n_giga, BigDecimal fee_extra_giga) {
+		this.n_giga = n_giga;
+		this.fee_extra_giga = fee_extra_giga;
+	}
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int internet_id;

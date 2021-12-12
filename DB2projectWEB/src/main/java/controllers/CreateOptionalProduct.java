@@ -61,6 +61,12 @@ public class CreateOptionalProduct extends HttpServlet {
 			return;
 		}
 		
+		if(costBigDecimal.floatValue() < 0) {
+			response.sendRedirect(homeEmployeePath);
+			return;
+		}
+		
+		
 		//check if there is already an opt prod with that name
 		
 		OptionalProduct optionalProduct = null;
