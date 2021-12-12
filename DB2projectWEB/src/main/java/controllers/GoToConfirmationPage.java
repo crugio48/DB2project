@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -135,7 +136,7 @@ public class GoToConfirmationPage extends HttpServlet {
 			}
 		}
 		
-		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected, totalAmount, startDate);
+		TempOrder tempOrder = new TempOrder(servicePackageId, validityPeriodId, optionalsSelected, BigDecimal.valueOf(totalAmount) , startDate);
 		
 		session.setAttribute("tempOrder", tempOrder);  //setting the tempOrder in the session, if there was already another one it gets replaced
 		

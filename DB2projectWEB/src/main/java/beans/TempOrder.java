@@ -1,6 +1,8 @@
 package beans;
 
 import java.util.Date;
+import java.math.BigDecimal;
+
 import java.util.Map;
 
 public class TempOrder {
@@ -8,10 +10,10 @@ public class TempOrder {
 	private int servicePackageId;
 	private int validityPeriodId;
 	private Map<Integer,Boolean>optionalsSelected;
-	private double totalAmount;
+	private BigDecimal totalAmount;
 	private Date startDate;
 	
-	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, double totalAmount, Date startDate) {
+	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, BigDecimal totalAmount, Date startDate) {
 		this.servicePackageId = servicePackageId;
 		this.validityPeriodId = validityPeriodId;
 		this.optionalsSelected = optionalsSelected;
@@ -38,11 +40,11 @@ public class TempOrder {
 		this.optionalsSelected = optionalsSelected;
 	}
 
-	public double getTotalAmount() {
+	public BigDecimal getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(double totalAmount) {
+	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 

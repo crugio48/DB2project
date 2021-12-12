@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -17,6 +18,18 @@ public class Order implements Serializable {
 		super();
 	}
 	
+	
+	
+	public Order(Date creation_date, Date start_date, String status, BigDecimal total_value) {
+		this.creation_date = creation_date;
+		this.start_date = start_date;
+		this.status = status;
+		this.total_value = total_value;
+		this.optionalProducts = new ArrayList();
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int order_id;

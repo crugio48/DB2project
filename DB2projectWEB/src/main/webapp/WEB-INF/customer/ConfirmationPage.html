@@ -60,7 +60,7 @@
 		<br>
 		
 		<div th:if="${session.customer}">
-			<a th:href="@{/BuyTheServicePackage}"> <button type="button">Buy</button></a>
+			<a th:href="@{/CreateOrder}"> <button type="button">Buy</button></a>
 		</div>
 		
 		<div th:unless="${session.customer}">

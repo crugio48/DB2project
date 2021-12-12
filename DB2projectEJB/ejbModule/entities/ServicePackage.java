@@ -95,4 +95,8 @@ public class ServicePackage implements Serializable {
 		this.services.add(service);
 		service.setMyServicePackage(this);
 	}
+	
+	public void addOrder(Order order) {
+		this.orders.add(order);
+	}
 }
