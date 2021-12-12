@@ -12,7 +12,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "optional_product", schema = "db2data")
-@NamedQuery(name = "OptionalProduct.findAll", query = "SELECT o FROM OptionalProduct o")
+
+@NamedQueries({
+	@NamedQuery(name = "OptionalProduct.findAll", query = "SELECT o FROM OptionalProduct o"),
+	@NamedQuery(name = "OptionalProduct.findByName", query = "Select o FROM OptionalProduct o WHERE o.name = ?1") 
+	})
 public class OptionalProduct implements Serializable {
 
 	
@@ -20,6 +24,11 @@ public class OptionalProduct implements Serializable {
 
 	public OptionalProduct() {
 		super();
+	}
+	
+	public OptionalProduct(String name, BigDecimal cost) {
+		this.name = name;
+		this.monthly_fee = cost;
 	}
 	
 	@Id
