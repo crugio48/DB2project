@@ -70,9 +70,6 @@ public class CheckLogin extends HttpServlet {
 		
 		customer = customerService.checkCredentials(usrn, pwd);
 			
-			
-		
-		
 		
 		String path;
 		if (employee == null && customer == null) {

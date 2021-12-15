@@ -96,6 +96,8 @@ public class GoToHomeCustomer extends HttpServlet {
 		
 		if (customer != null) {
 			ctx.setVariable("rejectedOrders", ordersRejected);
+			
+			//System.out.println(customer.getTimes_rejected());
 		}
 		
 		templateEngine.process(path, ctx, response.getWriter());

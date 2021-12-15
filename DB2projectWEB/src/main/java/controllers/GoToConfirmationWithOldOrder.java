@@ -84,6 +84,18 @@ public class GoToConfirmationWithOldOrder extends HttpServlet {
 			return;
 		}
 		
+		Map<Integer,Boolean> optionalsSelected = new HashMap<Integer,Boolean>();
+		
+		//initialize all available optional products to true
+		for(OptionalProduct o: order.getServicePackage().getOptionalProducts()) {
+			optionalsSelected.put(o.getOptional_product_id(), false);
+		}
+		
+		//overwrite selected optionals to true
+		for(OptionalProduct o: order.getOptionalProducts()) {
+			optionalsSelected.put(o.getOptional_product_id(), true);
+		}
+		
 		
 		TempOrder tempOrder = new TempOrder(orderId);
 		
@@ -97,7 +109,7 @@ public class GoToConfirmationWithOldOrder extends HttpServlet {
 		
 		ctx.setVariable("servicePackageSelected", order.getServicePackage());
 		ctx.setVariable("validityPeriodSelected", order.getValidityPeriod());
-		ctx.setVariable("optionalsSelected", order.getOptionalProducts());
+		ctx.setVariable("optionalsSelected", optionalsSelected);
 		ctx.setVariable("totalAmount", order.getTotal_value());
 		ctx.setVariable("startDate", order.getStart_date());
 		
