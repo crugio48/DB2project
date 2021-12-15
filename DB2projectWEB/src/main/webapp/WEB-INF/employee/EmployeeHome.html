@@ -6,11 +6,10 @@
 	<title>Employee Home page</title>
 </head>
 <body>
-	<div align="right">
-		<a href="Logout">Logout</a>
-	</div>
 	
 	<h1 th:text="${'Welcome ' + session.employee.username + ' this is your home page'}"></h1>
+	
+	<div align="right"> <a href="Logout">Logout</a> </div>
 	
 	<p style="color:red;" th:text=" ${errorMsg}"></p>
 	

@@ -47,9 +47,9 @@ public class Logout extends HttpServlet {
 		
 		if (session != null) {
 			//printing custom message in the login/index page, usually used when error occurred
-			if(session.getAttribute("errorMessage") != null) {
-				ctx.setVariable("errorMsg", session.getAttribute("errorMessage"));
-				session.removeAttribute("errorMessage");
+			if(session.getAttribute("errorMsg") != null) {
+				ctx.setVariable("errorMsg", session.getAttribute("errorMsg"));
+				session.removeAttribute("errorMsg");
 			}
 			
 			//removing all possible saved objects in the session

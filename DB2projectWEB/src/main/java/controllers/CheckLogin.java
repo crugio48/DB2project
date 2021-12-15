@@ -58,7 +58,7 @@ public class CheckLogin extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		
 		if (usrn == null || pwd == null || usrn.isEmpty() || pwd.isEmpty()) {
-			session.setAttribute("errorMessage", "Missing or empty credential value");
+			session.setAttribute("errorMsg", "Missing or empty credential value");
 			response.sendRedirect(loginpath);
 			return;
 		}
@@ -76,7 +76,7 @@ public class CheckLogin extends HttpServlet {
 		
 		String path;
 		if (employee == null && customer == null) {
-			session.setAttribute("errorMessage", "Missing or empty credential value");
+			session.setAttribute("errorMsg", "Missing or empty credential value");
 			response.sendRedirect(loginpath);
 			return;
 		}
@@ -102,7 +102,7 @@ public class CheckLogin extends HttpServlet {
 		else {
 			//should never get here, this means that there are one customer and one employee
 			//with the same username and password
-			session.setAttribute("errorMessage", "Database is inconsistent, fix needed");
+			session.setAttribute("errorMsg", "Database is inconsistent, fix needed");
 			response.sendRedirect(loginpath);
 			return;
 		}

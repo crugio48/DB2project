@@ -56,7 +56,7 @@ public class CustomerRegistration extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		if (usrn == null || pwd == null || usrn.isEmpty() || pwd.isEmpty() || email == null || email.isEmpty()) {
-			session.setAttribute("errorMessage", "Missing or empty credential value");
+			session.setAttribute("errorMsg", "Missing or empty credential value");
 			response.sendRedirect(loginpath);
 			return;
 		}
@@ -68,7 +68,7 @@ public class CustomerRegistration extends HttpServlet {
 		
 		String path = null;
 		if (customer == null) {
-			session.setAttribute("errorMessage", "Invalid credentials, username already present");
+			session.setAttribute("errorMsg", "Invalid credentials, username already present");
 			response.sendRedirect(loginpath);
 			return;
 		}
@@ -82,6 +82,7 @@ public class CustomerRegistration extends HttpServlet {
 			}
 			
 			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
+			session.setAttribute("errorMsg", "Registration successfull");
 			response.sendRedirect(path);
 		}
 		

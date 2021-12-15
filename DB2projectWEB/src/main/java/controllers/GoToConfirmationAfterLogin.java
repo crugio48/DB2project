@@ -52,14 +52,13 @@ public class GoToConfirmationAfterLogin extends HttpServlet {
 		
 		//the path for any type of error
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
-		String homePagePath = request.getServletContext().getContextPath() + "/GoToHomeCustomer";
 		
 		HttpSession session = request.getSession();
 		
 		TempOrder tempOrder = null;
 		
 		if ((tempOrder = (TempOrder) session.getAttribute("tempOrder")) == null) {
-			session.setAttribute("errorMessage", "Don't hack please");
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(loginpath);
 			return;
 		}
@@ -68,14 +67,16 @@ public class GoToConfirmationAfterLogin extends HttpServlet {
 		ValidityPeriod validityPeriodSelected = null;
 		
 		if ((validityPeriodSelected = validityPeriodService.getValidityPeriod(tempOrder.getValidityPeriodId())) == null) {  //check if validity period exists
-			response.sendRedirect(homePagePath);
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(loginpath);
 			return;
 		}
 		
 		ServicePackage servicePackageSelected = null;
 		
 		if ((servicePackageSelected = servicePackageService.getServicePackage(tempOrder.getServicePackageId())) == null) {    //check if service package exists
-			response.sendRedirect(homePagePath);
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(loginpath);
 			return;
 		}
 		

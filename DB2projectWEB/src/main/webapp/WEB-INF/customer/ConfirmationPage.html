@@ -10,6 +10,8 @@
 <body>
 
 	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name}">Package Selected:</h1>
+	
+	<div th:if="${session.customer}" align="right"> <a href="Logout">Logout</a> </div>
 		
 		<div>Services included:</div>
 		<table th:each="s : ${servicePackageSelected.services}">  <!-- one table for every service in the package-->

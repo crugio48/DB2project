@@ -63,7 +63,7 @@ public class CreateServicePackage extends HttpServlet {
 		//control of parameter of service package name
 		String name = request.getParameter("service_package_name");		
 		if (name == null || name.isEmpty()) {
-			session.setAttribute("errorMsg", "Invalid parameters");
+			session.setAttribute("errorMsg", "Invalid service package name");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -86,7 +86,7 @@ public class CreateServicePackage extends HttpServlet {
 			mobileInternetSelected = Boolean.valueOf(request.getParameter("mobile_internet"));
 			fixedInternetSelected = Boolean.valueOf(request.getParameter("fixed_internet"));
 		} catch(NullPointerException e) {
-			session.setAttribute("errorMsg", "Invalid parameters");
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -108,13 +108,13 @@ public class CreateServicePackage extends HttpServlet {
 				feeSms = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_phone_fee_sms")));
 				
 			} catch(NumberFormatException | NullPointerException e) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid mobile phone parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
 			
 			if(feeMinutes.floatValue() < 0 || feeSms.floatValue() < 0 || nMinutes < 0 || nSms < 0) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid mobile phone parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
@@ -131,13 +131,13 @@ public class CreateServicePackage extends HttpServlet {
 				feeGigaMob = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_fee_gigabytes")));
 				
 			} catch(NumberFormatException | NullPointerException e) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid mobile internet parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
 			
 			if(feeGigaMob.floatValue() < 0 || nGigaMob < 0) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid mobile internet parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
@@ -152,13 +152,13 @@ public class CreateServicePackage extends HttpServlet {
 				feeGigaFix = BigDecimal.valueOf(Double.parseDouble(request.getParameter("fixed_fee_gigabytes")));
 				
 			} catch(NumberFormatException | NullPointerException e) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid fixed internet parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
 			
 			if(feeGigaFix.floatValue() < 0 || nGigaFix < 0) {
-				session.setAttribute("errorMsg", "Invalid parameters");
+				session.setAttribute("errorMsg", "Invalid fixed internet parameters");
 				response.sendRedirect(homePagePath);
 				return;
 			}
@@ -186,7 +186,7 @@ public class CreateServicePackage extends HttpServlet {
 				optionalsSelected.put(p.getOptional_product_id() , Boolean.valueOf(request.getParameter(String.valueOf(p.getOptional_product_id()))));
 			}
 		} catch(ClassCastException | IllegalArgumentException | NullPointerException e) {
-			session.setAttribute("errorMsg", "Invalid parameters");
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}

@@ -54,6 +54,8 @@ public class GoToHomeCustomer extends HttpServlet {
 
 		String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		
+		HttpSession session = request.getSession();
+		
 		
 		List<ServicePackage> packagesList = null;
 		packagesList = servicePackageService.getAllAvailableServicePackages();
@@ -68,6 +70,11 @@ public class GoToHomeCustomer extends HttpServlet {
 				
 		ctx.setVariable("validityPeriods", validityPeriodList);
 		ctx.setVariable("servicePackages", packagesList);
+		
+		if(session.getAttribute("errorMsg") != null) {
+			ctx.setVariable("errorMsg", session.getAttribute("errorMsg"));
+			session.removeAttribute("errorMsg");
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

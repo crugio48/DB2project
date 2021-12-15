@@ -78,14 +78,17 @@ public class GoToConfirmationPage extends HttpServlet {
 			startDate = (Date) sdf.parse(request.getParameter("startDate"));
 			
 		} catch(NumberFormatException | NullPointerException e) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		} catch (ParseException e) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
 		
 		if (getMeYesterday().after(startDate)) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -93,6 +96,7 @@ public class GoToConfirmationPage extends HttpServlet {
 		ValidityPeriod validityPeriodSelected = null;
 		
 		if ((validityPeriodSelected = validityPeriodService.getValidityPeriod(validityPeriodId)) == null) {  //check if validity period exists
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -100,6 +104,7 @@ public class GoToConfirmationPage extends HttpServlet {
 		ServicePackage servicePackageSelected = null;
 		
 		if ((servicePackageSelected = servicePackageService.getServicePackage(servicePackageId)) == null) {    //check if service package exists
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -120,6 +125,7 @@ public class GoToConfirmationPage extends HttpServlet {
 				//System.out.println(p.getOptional_product_id() + " " + Boolean.valueOf(request.getParameter(String.valueOf(p.getOptional_product_id()))));
 			}
 		} catch(ClassCastException | IllegalArgumentException | NullPointerException e) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}

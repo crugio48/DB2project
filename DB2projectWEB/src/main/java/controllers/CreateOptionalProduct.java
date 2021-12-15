@@ -50,6 +50,7 @@ public class CreateOptionalProduct extends HttpServlet {
 		String optProdCost = request.getParameter("optional_product_cost");
 		
 		if (optProdName == null || optProdCost == null || optProdName.isEmpty() || optProdCost.isEmpty()) {
+			session.setAttribute("errorMsg", "Incorrect or missing param values");
 			response.sendRedirect(homeEmployeePath);
 			return;
 		}
@@ -57,11 +58,13 @@ public class CreateOptionalProduct extends HttpServlet {
 		try {
 			costBigDecimal = BigDecimal.valueOf(Double.parseDouble(optProdCost));
 		}catch (NumberFormatException | NullPointerException e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Incorrect or missing param values");
+			session.setAttribute("errorMsg", "Incorrect or missing param values");
+			response.sendRedirect(homeEmployeePath);
 			return;
 		}
 		
 		if(costBigDecimal.floatValue() < 0) {
+			session.setAttribute("errorMsg", "Incorrect or missing param values");
 			response.sendRedirect(homeEmployeePath);
 			return;
 		}
@@ -72,15 +75,16 @@ public class CreateOptionalProduct extends HttpServlet {
 		OptionalProduct optionalProduct = null;
 		
 		if (optionalProductService.isOptionalProductAlreadyPresent(optProdName)) {
-			//TODO: add message with setAttribute "the optional product already exists"
+			session.setAttribute("errorMsg", "An optional product with the same name already exists, please choose a new one");
 			response.sendRedirect(homeEmployeePath);
 			return;
 		}
 		else {
 			//put the opt prod in the db
 			optionalProductService.addNewOptionalProduct(optProdName, costBigDecimal);
-			//TODO: add a message with setAttribute "the optionalProduct was successfully created"
+			session.setAttribute("errorMsg", "Optional product created successfully");
 			response.sendRedirect(homeEmployeePath);
+			return;
 		}
 		
 				

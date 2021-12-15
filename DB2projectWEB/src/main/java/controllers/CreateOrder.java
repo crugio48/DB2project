@@ -53,6 +53,7 @@ public class CreateOrder extends HttpServlet {
 		Customer customer = (Customer) session.getAttribute("customer");
 		
 		if(customer == null  || tempOrder == null ) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -71,7 +72,9 @@ public class CreateOrder extends HttpServlet {
 		
 		orderService.createOrder(tempOrder.getServicePackageId(), tempOrder.getValidityPeriodId(), tempOrder.getOptionalsSelected(), tempOrder.getTotalAmount(), tempOrder.getStartDate(), customer.getUsername(), date , outcome);
 		
-		response.sendRedirect(homePagePath);	
+		
+		session.setAttribute("errorMsg", "Order made correctly, payment outcome: " + outcome);
+		response.sendRedirect(homePagePath);
 		
 	}
 

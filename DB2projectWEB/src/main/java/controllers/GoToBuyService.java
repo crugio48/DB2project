@@ -59,6 +59,7 @@ public class GoToBuyService extends HttpServlet {
 			servicePackageId = Integer.parseInt(request.getParameter("servicePackageId"));
 			
 		} catch(NumberFormatException | NullPointerException e) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -68,6 +69,7 @@ public class GoToBuyService extends HttpServlet {
 		
 		
 		if ((servicePackage =  servicePackageService.getServicePackage(servicePackageId)) == null) {
+			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
