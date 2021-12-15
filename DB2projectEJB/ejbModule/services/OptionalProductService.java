@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import entities.OptionalProduct;
+import entities.ServicePackage;
 
 @Stateless
 public class OptionalProductService {
@@ -59,4 +60,5 @@ public class OptionalProductService {
 		OptionalProduct optionalProduct = new OptionalProduct(name, cost);
 		em.persist(optionalProduct);
 	}
+	
 }

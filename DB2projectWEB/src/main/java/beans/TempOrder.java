@@ -12,6 +12,8 @@ public class TempOrder {
 	private Map<Integer,Boolean>optionalsSelected;
 	private BigDecimal totalAmount;
 	private Date startDate;
+	private boolean isNew;
+	private int orderId;
 	
 	public TempOrder(int servicePackageId, int validityPeriodId, Map<Integer, Boolean> optionalsSelected, BigDecimal totalAmount, Date startDate) {
 		this.servicePackageId = servicePackageId;
@@ -19,6 +21,12 @@ public class TempOrder {
 		this.optionalsSelected = optionalsSelected;
 		this.totalAmount = totalAmount;
 		this.startDate = startDate;
+		this.isNew = true;
+	}
+	
+	public TempOrder(int orderId) {
+		this.orderId = orderId;
+		this.isNew = false;
 	}
 	
 	public int getServicePackageId() {
@@ -55,9 +63,22 @@ public class TempOrder {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	
-	
-	
+
+	public boolean isNew() {
+		return isNew;
+	}
+
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 	
 	
 }

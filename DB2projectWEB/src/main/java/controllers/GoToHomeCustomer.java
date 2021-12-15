@@ -17,8 +17,11 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import entities.Customer;
+import entities.Order;
 import entities.ServicePackage;
 import entities.ValidityPeriod;
+import services.OrderService;
 import services.ServicePackageService;
 import services.ValidityPeriodService;
 
@@ -34,6 +37,9 @@ public class GoToHomeCustomer extends HttpServlet {
 	
 	@EJB(name = "services/ServicePackageService")
 	ServicePackageService servicePackageService;
+	
+	@EJB(name = "services/OrderService")
+	private OrderService orderService;
 	
     public GoToHomeCustomer() {
         super();
@@ -56,12 +62,24 @@ public class GoToHomeCustomer extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		//remove order bean
+		if(session.getAttribute("tempOrder") != null) {
+			session.removeAttribute("tempOrder");
+		}
+		
 		
 		List<ServicePackage> packagesList = null;
 		packagesList = servicePackageService.getAllAvailableServicePackages();
 		
 		List<ValidityPeriod> validityPeriodList = null;
 		validityPeriodList = validityPeriodService.getAllValidityPeriods();
+		
+		List<Order> ordersRejected = null;
+		if (customer != null) {
+			ordersRejected = orderService.getAllRejectedOrdersOfCustomer(customer.getUsername());
+		}
 		
 		
 		String path = "/WEB-INF/customer/CustomerHome.html";
@@ -75,6 +93,8 @@ public class GoToHomeCustomer extends HttpServlet {
 			ctx.setVariable("errorMsg", session.getAttribute("errorMsg"));
 			session.removeAttribute("errorMsg");
 		}
+		
+		ctx.setVariable("rejectedOrders", ordersRejected);
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

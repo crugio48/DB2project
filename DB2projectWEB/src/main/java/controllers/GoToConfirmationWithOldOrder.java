@@ -1,7 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -17,25 +20,25 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import entities.ServicePackage;
-import entities.ValidityPeriod;
-import services.ServicePackageService;
-import services.ValidityPeriodService;
+import beans.TempOrder;
+import entities.OptionalProduct;
+import entities.Customer;
+import entities.Order;
+import services.OrderService;
 
 
-@WebServlet("/GoToBuyService")
-public class GoToBuyService extends HttpServlet {
+@WebServlet("/GoToConfirmationWithOldOrder")
+public class GoToConfirmationWithOldOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
-	@EJB(name = "services/ServicePackageService")
-	ServicePackageService servicePackageService;
-	
-	@EJB(name = "services/ValidityPeriodService")
-	ValidityPeriodService validityPeriodService;
-    public GoToBuyService() {
+	@EJB(name = "services/OrderService")
+	private OrderService orderService;
+    
+    public GoToConfirmationWithOldOrder() {
         super();
     }
+    
     
     public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
@@ -49,20 +52,22 @@ public class GoToBuyService extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//String loginpath = request.getServletContext().getContextPath() + "/Logout";
 		String homePagePath = request.getServletContext().getContextPath() + "/GoToHomeCustomer";
 		
 		HttpSession session = request.getSession();
 		
-		//remove order bean
-		if(session.getAttribute("tempOrder") != null) {
-			session.removeAttribute("tempOrder");
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		if (customer == null) {
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(homePagePath);
+			return;
 		}
 		
-		int servicePackageId;
+		
+		int orderId = 0;
 		try {
-			servicePackageId = Integer.parseInt(request.getParameter("servicePackageId"));
-			
+			orderId = Integer.parseInt(request.getParameter("orderId"));
 		} catch(NumberFormatException | NullPointerException e) {
 			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
@@ -70,33 +75,34 @@ public class GoToBuyService extends HttpServlet {
 		}
 		
 		
-		ServicePackage servicePackage = null;
+		Order order = orderService.getOrder(orderId);
 		
-		
-		if ((servicePackage =  servicePackageService.getServicePackage(servicePackageId)) == null) {
+		if (order == null || !order.getCustomer().getUsername().equals(customer.getUsername())
+				|| !order.getStatus().equals("rejected")) {
 			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
 		
-		List<ServicePackage> packagesList = null;
-		packagesList = servicePackageService.getAllAvailableServicePackages();
 		
-		List<ValidityPeriod> validityPeriodList = null;
-		validityPeriodList = validityPeriodService.getAllValidityPeriods();
+		TempOrder tempOrder = new TempOrder(orderId);
 		
-		String path = "/WEB-INF/customer/BuyAServicePage.html";
+		session.setAttribute("tempOrder", tempOrder);
+		
+		
+		String path = "/WEB-INF/customer/ConfirmationPage.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
-		ctx.setVariable("servicePackageSelected", servicePackage);
-		ctx.setVariable("validityPeriods", validityPeriodList);
-		ctx.setVariable("servicePackages", packagesList);
+		
+		ctx.setVariable("servicePackageSelected", order.getServicePackage());
+		ctx.setVariable("validityPeriodSelected", order.getValidityPeriod());
+		ctx.setVariable("optionalsSelected", order.getOptionalProducts());
+		ctx.setVariable("totalAmount", order.getTotal_value());
+		ctx.setVariable("startDate", order.getStart_date());
 		
 		
 		templateEngine.process(path, ctx, response.getWriter());
-		
-		
 	}
 
 	
@@ -105,6 +111,7 @@ public class GoToBuyService extends HttpServlet {
 	}
 	
 	public void destroy() {
+			
 	}
 
 }

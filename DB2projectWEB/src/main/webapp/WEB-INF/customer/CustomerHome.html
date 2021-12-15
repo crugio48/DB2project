@@ -9,13 +9,46 @@
 </head>
 
 <body>
-	<h1 th:if="${session.customer}" th:text="${'Welcome ' + session.customer.username + ' this is the home page'}">Home page</h1>
+	<h1">Customer home page</h1>
+	
+	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}" align="right"></div>
 	
 	<div th:if="${session.customer}" align="right"> <a href="Logout">Logout</a> </div>
 	
 	<div th:unless="${session.customer}" align="right"> <a href="Logout">Go to login page</a> </div>
 	
 	<p style="color:red;" th:text=" ${errorMsg}"></p>
+	
+	
+	<div th:if="${session.customer && session.customer.times_rejected > 0}">
+		<div>List of your non payed past orders you can retry to buy:</div>
+		<table>
+			<thead>
+				<tr>                        <!-- creation date not printed cause it will then be overwritten when bought again -->
+					<th>order Id</th>
+					<th>Service Package Id</th>
+					<th>Validity period Id</th>
+					<th>Start date</th>
+					<th>Total value</th>
+					<th>Go see more details</th>
+				</tr>
+			</thead>
+				
+			<tbody>
+				<tr th:each="o : ${rejectedOrders}">
+					<td th:text="${o.order_id}"><td>
+					<td th:text="${o.service_package_id}"><td>
+					<td th:text="${o.validity_period_id}"><td>
+					<td th:text="${o.start_date}"><td>
+					<td th:text="${o.total_value}"><td>
+					<td><a th:href="@{/GoToConfirmationWithOldOrder(orderId=${o.order_id})}"> <button type="button">Go to the confirmation page</button></a></td>
+				</tr>
+			
+			</tbody>
+		
+		</table>
+	
+	</div>
 	
 	<div class = "container">  <!-- flex container div -->
 	
@@ -30,7 +63,7 @@
 			
 			<tbody>
 				<tr th:each="p : ${servicePackages}">      <!-- one row for every service package -->
-					<td th:text="${p.name}"> [servicePackage name]</td>
+					<td th:text="${'Name: ' + p.name+ ', Id: ' + p.service_package_id}"> [servicePackage name]</td>
 					<td>
 						<div>Services included:</div>
 						<table th:each="s : ${p.services}">  <!-- one table for every service in the package-->

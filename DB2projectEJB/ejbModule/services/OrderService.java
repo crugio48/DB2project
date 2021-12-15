@@ -2,11 +2,13 @@ package services;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import entities.Customer;
 import entities.OptionalProduct;
@@ -53,10 +55,35 @@ public class OrderService {
 			if (optionalsSelected.get(o.getOptional_product_id())) {
 				o.addOrder(order);
 				order.addOptionalProduct(o);
+				
 			}
 		}
 		
+	}
+	
+	public List<Order> getAllRejectedOrdersOfCustomer(String username) {
+		List<Order> rejectedOrders = null;
 		
+		try {
+			rejectedOrders = em.createNamedQuery("Order.findAllRejectedOfCustomer", Order.class).setParameter(1, username).getResultList();
+		} catch (PersistenceException e) {
+			System.out.println("PersistenceException");
+		}
+		
+		return rejectedOrders;
+	}
+	
+	public Order getOrder(int orderId) {
+		return em.find(Order.class, orderId);
+	}
+	
+	
+	public void updateOrder(int orderId, String status, Date newCreationDate) {
+		Order order = em.find(Order.class, orderId);
+		
+		//this order is persisted so we can update the tuple by changing its values
+		order.setStatus(status);
+		order.setCreation_date(newCreationDate);
 		
 	}
 }

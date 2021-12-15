@@ -9,6 +9,8 @@
 
 <body>
 	<h1>Choose which package you want to buy</h1>
+	
+	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}" align="right"></div>
 
 	<div th:if="${session.customer}" align="right"> <a href="Logout">Logout</a> </div>
 	
@@ -19,7 +21,7 @@
 	
 		<select name = "servicePackageId">
 		
-			<option th:each = "p: ${servicePackages}" th:value = "${p.service_package_id}" th:text="${p.name}"></option>
+			<option th:each = "p: ${servicePackages}" th:value = "${p.service_package_id}" th:text="${'Name: ' + p.name+ ', Id: ' + p.service_package_id}"></option>
 		
 		</select>
 		<input type="submit" value="show">
@@ -28,7 +30,7 @@
 
 
 <div>
-	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name}">Package Selected:</h1>
+	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name+ ', Id: ' + servicePackageSelected.service_package_id}">Package Selected:</h1>
 	
 	<div>Services included:</div>
 	<table th:each="s : ${servicePackageSelected.services}">  <!-- one table for every service in the package-->

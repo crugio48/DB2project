@@ -20,19 +20,17 @@ import beans.TempOrder;
 import entities.Customer;
 import services.OrderService;
 
-/**
- * Servlet implementation class CreateOrder
- */
+
 @WebServlet("/CreateOrder")
 public class CreateOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
+	
 	@EJB(name = "services/OrderService")
 	private OrderService orderService;
     
     public CreateOrder() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init() throws ServletException {
@@ -70,7 +68,15 @@ public class CreateOrder extends HttpServlet {
 		
 		Date date = new Date(System.currentTimeMillis());
 		
-		orderService.createOrder(tempOrder.getServicePackageId(), tempOrder.getValidityPeriodId(), tempOrder.getOptionalsSelected(), tempOrder.getTotalAmount(), tempOrder.getStartDate(), customer.getUsername(), date , outcome);
+		if (tempOrder.isNew()) {
+			orderService.createOrder(tempOrder.getServicePackageId(), tempOrder.getValidityPeriodId(),
+					tempOrder.getOptionalsSelected(), tempOrder.getTotalAmount(), tempOrder.getStartDate(),
+					customer.getUsername(), date , outcome);
+			
+		}
+		else {
+			orderService.updateOrder(tempOrder.getOrderId(), outcome, date);
+		}
 		
 		
 		session.setAttribute("errorMsg", "Order made correctly, payment outcome: " + outcome);
@@ -80,7 +86,6 @@ public class CreateOrder extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	
 	}

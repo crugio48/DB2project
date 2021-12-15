@@ -9,7 +9,9 @@
 
 <body>
 
-	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name}">Package Selected:</h1>
+	<h1 th:text = "${'Package Selected: ' + servicePackageSelected.name+ ', Id: ' + servicePackageSelected.service_package_id}">Package Selected:</h1>
+	
+	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}" align="right"></div>
 	
 	<div th:if="${session.customer}" align="right"> <a href="Logout">Logout</a> </div>
 		
