@@ -94,7 +94,9 @@ public class GoToHomeCustomer extends HttpServlet {
 			session.removeAttribute("errorMsg");
 		}
 		
-		ctx.setVariable("rejectedOrders", ordersRejected);
+		if (customer != null) {
+			ctx.setVariable("rejectedOrders", ordersRejected);
+		}
 		
 		templateEngine.process(path, ctx, response.getWriter());
 		

@@ -11,11 +11,11 @@
 <body>
 	<h1">Customer home page</h1>
 	
-	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}" align="right"></div>
+	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}"></div>
 	
-	<div th:if="${session.customer}" align="right"> <a href="Logout">Logout</a> </div>
+	<div th:if="${session.customer}"> <a href="Logout">Logout</a> </div>
 	
-	<div th:unless="${session.customer}" align="right"> <a href="Logout">Go to login page</a> </div>
+	<div th:unless="${session.customer}"> <a href="Logout">Go to login page</a> </div>
 	
 	<p style="color:red;" th:text=" ${errorMsg}"></p>
 	
