@@ -9,13 +9,13 @@
 </head>
 
 <body>
-	<h1">Customer home page</h1>
+	<h1>Customer home page</h1>
 	
-	<div th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}"></div>
+	<div align="right" th:if="${session.customer}" th:text="${'Hello ' + session.customer.username}"></div>
 	
-	<div th:if="${session.customer}"> <a href="Logout">Logout</a> </div>
+	<div align="right" th:if="${session.customer}"> <a href="Logout">Logout</a> </div>
 	
-	<div th:unless="${session.customer}"> <a href="Logout">Go to login page</a> </div>
+	<div align="right" th:unless="${session.customer}"> <a href="Logout">Go to login page</a> </div>
 	
 	<p style="color:red;" th:text=" ${errorMsg}"></p>
 	
@@ -37,8 +37,8 @@
 			<tbody>
 				<tr th:each="o : ${rejectedOrders}">
 					<td th:text="${o.order_id}"><td>
-					<td th:text="${o.service_package_id}"><td>
-					<td th:text="${o.validity_period_id}"><td>
+					<td th:text="${o.servicePackage.service_package_id}"><td>
+					<td th:text="${o.validityPeriod.validity_period_id}"><td>
 					<td th:text="${o.start_date}"><td>
 					<td th:text="${o.total_value}"><td>
 					<td><a th:href="@{/GoToConfirmationWithOldOrder(orderId=${o.order_id})}"> <button type="button">Go to the confirmation page</button></a></td>
