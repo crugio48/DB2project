@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import entities.OptionalProduct;
 import entities.Service;
 import entities.ServicePackage;
+import entities.ValidityPeriod;
 
 @Stateless
 public class ServicePackageService {
@@ -62,34 +63,20 @@ public class ServicePackageService {
 		}
 	}
 	
-	/**
-	 * need to pass to this function the services (!= null and already fully constructed) iff they must go in the service package 
-	 * @param name
-	 * @param mobilePhoneService
-	 * @param fixedPhoneService
-	 * @param mobileInternetService
-	 * @param fixedInternetService
-	 */
-	public void createServicePackage(String name, Service mobilePhoneService, Service fixedPhoneService,
-			Service mobileInternetService, Service fixedInternetService,
+	
+	public void createServicePackage(String name, List<Service> allServices, List<ValidityPeriod> validityPeriods,
 			Map<Integer,Boolean> optionalsSelected, List<OptionalProduct> allOptionals) {
 		
 		ServicePackage newPackage = new ServicePackage(name);
 		
-		if (mobilePhoneService != null) {
-			newPackage.addService(mobilePhoneService);
+		for(Service s: allServices) {
+			//the add is double patty burger
+			newPackage.addService(s);
 		}
 		
-		if (fixedPhoneService != null) {
-			newPackage.addService(fixedPhoneService);
-		}
-		
-		if (mobileInternetService != null) {
-			newPackage.addService(mobileInternetService);
-		}
-		
-		if (fixedInternetService != null) {
-			newPackage.addService(fixedInternetService);
+		for(ValidityPeriod v: validityPeriods) {
+			//the add is double patty burger
+			newPackage.addValidityPeriod(v);
 		}
 		
 		//by cascading also all services will be persisted (among also the subclasses)

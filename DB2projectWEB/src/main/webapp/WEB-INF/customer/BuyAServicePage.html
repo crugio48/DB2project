@@ -65,7 +65,7 @@
 	
 		<select name = "validityPeriodId">
 		
-			<option th:each = "v : ${validityPeriods}" th:value = "${v.validity_period_id}" 
+			<option th:each = "v : ${servicePackageSelected.validityPeriods}" th:value = "${v.validity_period_id}" 
 			th:text="${'duration: ' + v.duration + ' months, monthly fee: ' + v.monthly_fee + ' euro'}"></option>
 		
 		</select>

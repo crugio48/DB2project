@@ -109,6 +109,20 @@ public class GoToConfirmationPage extends HttpServlet {
 			return;
 		}
 		
+		//controlling if validity period selected is one linked with the service package
+		boolean isMine = false;
+		for(ValidityPeriod v: servicePackageSelected.getValidityPeriods()) {
+			if (v.getValidity_period_id() == validityPeriodId) {
+				isMine = true;
+			}
+		}
+		if(!isMine) {
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		
 		Map<Integer,Boolean> optionalsSelected = new HashMap<>();
 		
 		for (OptionalProduct p : servicePackageSelected.getOptionalProducts()) {

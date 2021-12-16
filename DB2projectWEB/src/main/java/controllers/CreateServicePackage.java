@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import entities.MobileAndFixedInternet;
 import entities.MobilePhone;
 import entities.OptionalProduct;
 import entities.Service;
+import entities.ValidityPeriod;
 import services.OptionalProductService;
 import services.ServicePackageService;
 
@@ -79,33 +81,38 @@ public class CreateServicePackage extends HttpServlet {
 		
 		
 		//controls on checkboxes of services
-		boolean mobilePhoneSelected, fixedPhoneSelected, mobileInternetSelected, fixedInternetSelected;
+		int mobilePhoneSelected, fixedPhoneSelected, mobileInternetSelected, fixedInternetSelected;
 		try {
-			mobilePhoneSelected = Boolean.valueOf(request.getParameter("mobile_phone"));
-			fixedPhoneSelected = Boolean.valueOf(request.getParameter("fixed_phone"));
-			mobileInternetSelected = Boolean.valueOf(request.getParameter("mobile_internet"));
-			fixedInternetSelected = Boolean.valueOf(request.getParameter("fixed_internet"));
-		} catch(NullPointerException e) {
+			mobilePhoneSelected = Integer.valueOf(request.getParameter("mobile_phones"));
+			fixedPhoneSelected = Integer.valueOf(request.getParameter("fixed_phones"));
+			mobileInternetSelected = Integer.valueOf(request.getParameter("mobile_internets"));
+			fixedInternetSelected = Integer.valueOf(request.getParameter("fixed_internets"));
+		} catch(NumberFormatException | NullPointerException e) {
 			session.setAttribute("errorMsg", "Don't hack please");
 			response.sendRedirect(homePagePath);
 			return;
 		}
 		
-		Service mobilePhoneService = null;
-		Service fixedPhoneService = null;
-		Service fixedInternetService = null;
-		Service mobileInternetService = null;
+		if (mobilePhoneSelected < 0 || fixedPhoneSelected < 0 || mobileInternetSelected < 0 || fixedInternetSelected < 0) {
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		List<Service> allServices = new ArrayList();
+		
+		Service generalService = null;
 		
 		
 		int nMinutes, nSms, nGigaFix, nGigaMob;
 		BigDecimal feeMinutes, feeSms, feeGigaFix, feeGigaMob;
 		//all controls on parameters passed
-		if (mobilePhoneSelected) {
+		for (int i = 1; i <= mobilePhoneSelected; i++) {
 			try {
-				nMinutes = Integer.valueOf(request.getParameter("mobile_phone_minutes"));
-				nSms = Integer.valueOf(request.getParameter("mobile_phone_sms"));
-				feeMinutes = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_phone_fee_minutes")));
-				feeSms = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_phone_fee_sms")));
+				nMinutes = Integer.valueOf(request.getParameter("mobile_phone_minutes" + String.valueOf(i)));
+				nSms = Integer.valueOf(request.getParameter("mobile_phone_sms" + String.valueOf(i)));
+				feeMinutes = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_phone_fee_minutes" + String.valueOf(i))));
+				feeSms = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_phone_fee_sms" + String.valueOf(i))));
 				
 			} catch(NumberFormatException | NullPointerException e) {
 				session.setAttribute("errorMsg", "Invalid mobile phone parameters");
@@ -120,15 +127,19 @@ public class CreateServicePackage extends HttpServlet {
 			}
 			
 			
-			mobilePhoneService = new Service("mobile phone");
-			mobilePhoneService.setMobilePhone(new MobilePhone(nMinutes, nSms, feeMinutes, feeSms));
+			generalService = new Service("mobile phone");
+			generalService.setMobilePhone(new MobilePhone(nMinutes, nSms, feeMinutes, feeSms));
+			
+			allServices.add(generalService);
 			
 		}
 		
-		if (mobileInternetSelected) {
+		
+		
+		for (int i = 1; i <= mobileInternetSelected; i++) {
 			try {
-				nGigaMob = Integer.valueOf(request.getParameter("mobile_gigabytes"));
-				feeGigaMob = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_fee_gigabytes")));
+				nGigaMob = Integer.valueOf(request.getParameter("mobile_gigabytes" + String.valueOf(i)));
+				feeGigaMob = BigDecimal.valueOf(Double.parseDouble(request.getParameter("mobile_fee_gigabytes" + String.valueOf(i))));
 				
 			} catch(NumberFormatException | NullPointerException e) {
 				session.setAttribute("errorMsg", "Invalid mobile internet parameters");
@@ -142,14 +153,16 @@ public class CreateServicePackage extends HttpServlet {
 				return;
 			}
 			
-			mobileInternetService = new Service("mobile internet");
-			mobileInternetService.setMobileAndFixedInternet(new MobileAndFixedInternet(nGigaMob, feeGigaMob));
+			generalService = new Service("mobile internet");
+			generalService.setMobileAndFixedInternet(new MobileAndFixedInternet(nGigaMob, feeGigaMob));
+			
+			allServices.add(generalService);
 		}
 		
-		if (fixedInternetSelected) {
+		for (int i = 1; i <= fixedInternetSelected; i++) {
 			try {
-				nGigaFix = Integer.valueOf(request.getParameter("fixed_gigabytes"));
-				feeGigaFix = BigDecimal.valueOf(Double.parseDouble(request.getParameter("fixed_fee_gigabytes")));
+				nGigaFix = Integer.valueOf(request.getParameter("fixed_gigabytes" + String.valueOf(i)));
+				feeGigaFix = BigDecimal.valueOf(Double.parseDouble(request.getParameter("fixed_fee_gigabytes" + String.valueOf(i))));
 				
 			} catch(NumberFormatException | NullPointerException e) {
 				session.setAttribute("errorMsg", "Invalid fixed internet parameters");
@@ -163,12 +176,16 @@ public class CreateServicePackage extends HttpServlet {
 				return;
 			}
 			
-			fixedInternetService = new Service("fixed internet");
-			fixedInternetService.setMobileAndFixedInternet(new MobileAndFixedInternet(nGigaFix, feeGigaFix));
+			generalService = new Service("fixed internet");
+			generalService.setMobileAndFixedInternet(new MobileAndFixedInternet(nGigaFix, feeGigaFix));
+			
+			allServices.add(generalService);
 		}
 		
-		if(fixedPhoneSelected) {
-			fixedPhoneService = new Service("fixed phone");
+		for (int i = 1; i <= fixedPhoneSelected; i++) {
+			generalService = new Service("fixed phone");
+			
+			allServices.add(generalService);
 		}
 		
 		
@@ -192,12 +209,46 @@ public class CreateServicePackage extends HttpServlet {
 		}
 		
 		
+		List<ValidityPeriod> validityPeriods = new ArrayList();
+		
+		int validityCounter = 0;
+		try {
+			validityCounter = Integer.parseInt(request.getParameter("validity_periods"));
+		} catch(NumberFormatException | NullPointerException e) {
+			session.setAttribute("errorMsg", "Invalid mobile phone parameters");
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		int duration;
+		BigDecimal cost;
+		
+		for (int i = 1; i <= validityCounter; i++) {
+			try {
+				duration = Integer.parseInt(request.getParameter("validity_period_duration" + String.valueOf(i)));
+				cost = BigDecimal.valueOf(Double.parseDouble(request.getParameter("validity_period_cost" + String.valueOf(i))));
+			} catch(NumberFormatException | NullPointerException e) {
+				session.setAttribute("errorMsg", "Invalid Validity period parameters");
+				response.sendRedirect(homePagePath);
+				return;
+			}
+			
+			if(cost.floatValue() < 0 || duration < 0) {
+				session.setAttribute("errorMsg", "Invalid Validity period parameters");
+				response.sendRedirect(homePagePath);
+				return;
+			}
+			
+			validityPeriods.add(new ValidityPeriod(cost, duration));
+			
+		}
+		
+		
 		
 		
 		//at this point all checks have been passed
 		
-		servicePackageService.createServicePackage(name, mobilePhoneService, fixedPhoneService,
-				mobileInternetService, fixedInternetService, optionalsSelected, allOptionals);
+		servicePackageService.createServicePackage(name, allServices, validityPeriods, optionalsSelected, allOptionals);
 		
 		
 		//creation successfull

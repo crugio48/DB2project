@@ -28,6 +28,7 @@ public class ServicePackage implements Serializable {
 		this.name = name;
 		this.optionalProducts = new ArrayList();
 		this.services = new ArrayList();
+		this.validityPeriods = new ArrayList();
 	}
 	
 	@Id
@@ -46,6 +47,10 @@ public class ServicePackage implements Serializable {
 	
 	@OneToMany(mappedBy = "myServicePackage", cascade = CascadeType.PERSIST)
 	private List<Service> services;
+	
+	
+	@OneToMany(mappedBy = "linkedServicePackage", cascade = CascadeType.PERSIST)
+	private List<ValidityPeriod> validityPeriods;
 
 	public int getService_package_id() {
 		return service_package_id;
@@ -98,5 +103,18 @@ public class ServicePackage implements Serializable {
 	
 	public void addOrder(Order order) {
 		this.orders.add(order);
+	}
+
+	public List<ValidityPeriod> getValidityPeriods() {
+		return validityPeriods;
+	}
+
+	public void setValidityPeriods(List<ValidityPeriod> validityPeriods) {
+		this.validityPeriods = validityPeriods;
+	}
+	
+	public void addValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriods.add(validityPeriod);
+		validityPeriod.setLinkedServicePackage(this);
 	}
 }

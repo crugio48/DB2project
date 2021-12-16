@@ -31,8 +31,6 @@ public class GoToBuyService extends HttpServlet {
 	@EJB(name = "services/ServicePackageService")
 	ServicePackageService servicePackageService;
 	
-	@EJB(name = "services/ValidityPeriodService")
-	ValidityPeriodService validityPeriodService;
     public GoToBuyService() {
         super();
     }
@@ -82,15 +80,12 @@ public class GoToBuyService extends HttpServlet {
 		List<ServicePackage> packagesList = null;
 		packagesList = servicePackageService.getAllAvailableServicePackages();
 		
-		List<ValidityPeriod> validityPeriodList = null;
-		validityPeriodList = validityPeriodService.getAllValidityPeriods();
 		
 		String path = "/WEB-INF/customer/BuyAServicePage.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
 		ctx.setVariable("servicePackageSelected", servicePackage);
-		ctx.setVariable("validityPeriods", validityPeriodList);
 		ctx.setVariable("servicePackages", packagesList);
 		
 		

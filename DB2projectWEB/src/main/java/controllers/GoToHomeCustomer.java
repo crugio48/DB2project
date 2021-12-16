@@ -31,9 +31,6 @@ import services.ValidityPeriodService;
 public class GoToHomeCustomer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-       
-	@EJB(name = "services/ValidityPeriodService")
-	ValidityPeriodService validityPeriodService;
 	
 	@EJB(name = "services/ServicePackageService")
 	ServicePackageService servicePackageService;
@@ -73,9 +70,6 @@ public class GoToHomeCustomer extends HttpServlet {
 		List<ServicePackage> packagesList = null;
 		packagesList = servicePackageService.getAllAvailableServicePackages();
 		
-		List<ValidityPeriod> validityPeriodList = null;
-		validityPeriodList = validityPeriodService.getAllValidityPeriods();
-		
 		List<Order> ordersRejected = null;
 		if (customer != null) {
 			ordersRejected = orderService.getAllRejectedOrdersOfCustomer(customer.getUsername());
@@ -86,7 +80,6 @@ public class GoToHomeCustomer extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 				
-		ctx.setVariable("validityPeriods", validityPeriodList);
 		ctx.setVariable("servicePackages", packagesList);
 		
 		if(session.getAttribute("errorMsg") != null) {

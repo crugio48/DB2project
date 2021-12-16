@@ -95,6 +95,26 @@
 							
 						</table>
 						
+						<div>Validity periods available:</div>
+						<table>
+							<thead>
+								<tr> 
+									<th> ID </th>
+									<th> Duration </th>
+									<th> Monthly Cost</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="v : ${p.validityPeriods}"> 
+									<td th:text = "${v.validity_period_id}"> 25 </td>
+									<td th:text = "${v.duration + ' months'}"> 5 months </td> 
+									<td th:text = "${v.monthly_fee + ' euro'}"> 1000€ </td>
+								</tr>
+								
+							</tbody>
+						</table>
+						
+						
 						<table th:unless="${p.optionalProducts.isEmpty()}">  <!-- one table for the optional products of the service-->
 							<thead>
 								<tr>
@@ -126,7 +146,9 @@
 	
 	</div>
 	
-	<div class = "right">  <!-- right part of flex for the validity periods ang go to buy a service button -->
+	<div class = "right">  <!-- right part of flex for go to buy a service button -->
+		
+		<!-- 
 		<div>Validity periods available:</div>
 		<table>
 			<thead>
@@ -145,6 +167,7 @@
 				
 			</tbody>
 		</table>
+		-->
 		
 		<br><br><br>  <!-- blank space -->
 		<div>

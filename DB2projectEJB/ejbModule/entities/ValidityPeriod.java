@@ -18,6 +18,13 @@ public class ValidityPeriod implements Serializable {
 		super();
 	}
 	
+	public ValidityPeriod(BigDecimal monthly_fee, int duration) {
+		this.monthly_fee = monthly_fee;
+		this.duration = duration;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int validity_period_id;
@@ -28,6 +35,10 @@ public class ValidityPeriod implements Serializable {
 	
 	@OneToMany(mappedBy = "validityPeriod", fetch = FetchType.LAZY)
 	List<Order> orders;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_package_id")
+	ServicePackage linkedServicePackage;
 	
 
 	public int getValidity_period_id() {
@@ -65,4 +76,14 @@ public class ValidityPeriod implements Serializable {
 	public void addOrder(Order order) {
 		this.orders.add(order);
 	}
+
+	public ServicePackage getLinkedServicePackage() {
+		return linkedServicePackage;
+	}
+
+	public void setLinkedServicePackage(ServicePackage linkedServicePackage) {
+		this.linkedServicePackage = linkedServicePackage;
+	}
+	
+	
 }
