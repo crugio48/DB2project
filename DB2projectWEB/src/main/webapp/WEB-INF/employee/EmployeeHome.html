@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" media="all" href="../../css/flex.css" th:href="@{/css/flex.css}" />
 	<title>Employee Home page</title>
+
+	<script src="../../javascript/employee.js" charset="utf-8" defer></script>
+
 </head>
 <body>
 	
@@ -17,14 +20,51 @@
 	
 	<div class = "left">
 
-		<h1>Create a Service Package:</h1>
+        <h1>Create a Service Package:</h1>
 		
 		<form action="CreateServicePackage" method="POST">
+
+            Name of the Service Package: <input type="text" name="service_package_name" required> <br> <br>
+            <br>
+            <div>Specify the services you want to insert:</div>
+            <br>
+
+			How many Fixed Phone services do you want to include: <input type="number" min=0 name="fixed_phones">
+
+			<br>
+			<br>
+
+			How many Mobile Phone services do you want to include: <input id="mobilePhonesCounter" min=0 type="number" name="mobile_phones">
+			<div id="mobilePhoneDiv">
+
+			</div>
+
+			<br>
+
+			How many Mobile Internet services do you want to include: <input id="mobileInternetCounter" min=0 type="number" name="mobile_internets">
+			<div id="mobileInternetDiv">
+
+			</div>
+
+			<br>
+
+			How many Fixed Internet services do you want to include: <input id="fixedInternetCounter" min=0 type="number" name="fixed_internets">
+			<div id="fixedInternetDiv">
+
+			</div>
+
+			<br>
+
+			How many Validity Periods do you want to pair with the package: <input id="validityPeriodCounter" min=1 type="number" name="validity_periods">
+			<div id="validityPeriodDiv">
+
+			</div>
+
+			<br>
+
+        <!-- outdated form code
+
 		
-			Name of the Service Package: <input type="text" name="service_package_name" required> <br> <br>
-			<br>
-			<div>Specify the services you want to insert:</div>
-			<br>
 			Mobile Phone <input type = "checkbox" value = "true" name = "mobile_phone"> <br>
 				Number of minutes: <input type="number" min=0 name="mobile_phone_minutes" > <br>
 				Number of sms: <input type="number" min=0 name="mobile_phone_sms" > <br>
@@ -41,14 +81,22 @@
 			
 			Fixed Phone <input type = "checkbox" value = "true" name = "fixed_phone"> <br> <br>
 			
-			
-			<div> Select the Optional Products that you want in the package: </div>
-			<div th:each = "o : ${allOptionalProducts}">
-				<input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' - monthly fee: ' + o.monthly_fee + ' euro'}">
-			</div><br>
-			
-			<input type="submit" value="Create Service Package">
-		</form>
+		
+
+        -->
+
+            <!-- TODO add fixed phone number input-->
+
+            <!-- TODO add validity period creation with javascript-->
+
+            <div> Select the Optional Products that you want in the package: </div>
+            <div th:each = "o : ${allOptionalProducts}">
+                <input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' - monthly fee: ' + o.monthly_fee + ' euro'}">
+            </div><br>
+            
+            <input type="submit" value="Create Service Package">
+        
+        </form>
 		
 	</div>
 	
