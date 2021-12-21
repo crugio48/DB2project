@@ -144,6 +144,7 @@ public class GoToConfirmationPage extends HttpServlet {
 			return;
 		}
 		
+		//now we know all parameters are correct
 		
 		float totalAmount = 0;
 		

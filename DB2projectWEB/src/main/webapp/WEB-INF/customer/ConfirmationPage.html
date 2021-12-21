@@ -64,7 +64,9 @@
 		<br>
 		
 		<div th:if="${session.customer}">
-			<a th:href="@{/CreateOrder}"> <button type="button">Buy</button></a>
+			<a th:href="@{/CreateOrderPayed}"> <button type="button">Buy paying surely</button></a>
+			<br>
+			<a th:href="@{/CreateOrderRejected}"> <button type="button">Buy with rejected payment</button></a>
 		</div>
 		
 		<div th:unless="${session.customer}">

@@ -25,17 +25,16 @@ public class OrderService {
 		
 	}
 	
-	public void createOrder(
+	public int createOrder(
 			int servicePackageId,
 			int validityPeriodId, 
 			Map<Integer,Boolean>optionalsSelected, 
 			BigDecimal totalAmount,
 			Date startDate,
 			String username,
-			Date creationDate,
-			String status) {
+			Date creationDate) {
 		
-		Order order = new Order(creationDate, startDate, status, totalAmount);
+		Order order = new Order(creationDate, startDate, "waiting", totalAmount);
 		Customer customer = em.find(Customer.class, username);
 		ServicePackage servicePackage = em.find(ServicePackage.class, servicePackageId);
 		ValidityPeriod validityPeriod = em.find(ValidityPeriod.class, validityPeriodId);
@@ -59,7 +58,21 @@ public class OrderService {
 			}
 		}
 		
+		em.flush();
+		
+		em.refresh(order);
+		
+		return order.getOrder_id();
+		
 	}
+	
+	public void setNewOrderStatus(int orderId, String status) {
+		Order order = em.find(Order.class, orderId);
+		
+		//this order is persisted so we can update the tuple by changing its values
+		order.setStatus(status);
+	}
+	
 	
 	public List<Order> getAllRejectedOrdersOfCustomer(String username) {
 		List<Order> rejectedOrders = null;

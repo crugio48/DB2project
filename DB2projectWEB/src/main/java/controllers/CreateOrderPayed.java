@@ -21,15 +21,15 @@ import entities.Customer;
 import services.OrderService;
 
 
-@WebServlet("/CreateOrder")
-public class CreateOrder extends HttpServlet {
+@WebServlet("/CreateOrderPayed")
+public class CreateOrderPayed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
 	@EJB(name = "services/OrderService")
 	private OrderService orderService;
     
-    public CreateOrder() {
+    public CreateOrderPayed() {
         super();
     }
     
@@ -56,22 +56,17 @@ public class CreateOrder extends HttpServlet {
 			return;
 		}
 		
-		
-		
-		String outcome = null;
-		if (randomPaymentSuccessfull()) {
-			outcome = "payed";
-		}
-		else {
-			outcome = "rejected";
-		}
+		String outcome = "payed";
 		
 		Date date = new Date(System.currentTimeMillis());
 		
 		if (tempOrder.isNew()) {
-			orderService.createOrder(tempOrder.getServicePackageId(), tempOrder.getValidityPeriodId(),
+			int orderId = orderService.createOrder(tempOrder.getServicePackageId(), tempOrder.getValidityPeriodId(),
 					tempOrder.getOptionalsSelected(), tempOrder.getTotalAmount(), tempOrder.getStartDate(),
-					customer.getUsername(), date , outcome);
+					customer.getUsername(), date);
+			
+			orderService.setNewOrderStatus(orderId, outcome);
+			
 			
 		}
 		else {
@@ -92,15 +87,5 @@ public class CreateOrder extends HttpServlet {
 	
 	public void destroy() {
 		
-	}
-	
-	//the method returns randomically true or false
-	private boolean randomPaymentSuccessfull() {
-		if (Math.random() >= 0.5) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 }
