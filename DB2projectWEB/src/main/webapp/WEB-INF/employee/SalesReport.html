@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="all" href="../../css/flex.css" th:href="@{/css/flex.css}" />
+<link rel="stylesheet" type="text/css" media="all" href="../../css/tables.css" th:href="@{/css/tables.css}" />
+<title>Sales Report</title>
+	
+</head>
+<body>
+
+<h1>Sales Report Page</h1>
+
+<div>Here you can inspect the essential data about the sales and about the users</div>
+<br>
+
+<div> Number of total purchases per package:</div>
+
+<table> 
+	<thead>
+		<tr>
+			<th>Service Package Id</th>
+			<th>Number Of Purchases</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each = "o : ${TotalPurchasesList}">
+			<td th:text="${o.service_package_id}"></td>
+			<td th:text="${o.number_of_purchases}"></td>
+		</tr>
+	</tbody>
+</table>
+
+<br>
+<div> Number of total purchases per package and validity period:</div>
+<table> 
+	<thead>
+		<tr>
+			<th>Service Package Id</th>
+			<th>Validity Period Id</th>
+			<th>Number Of Purchases</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each = "o : ${TotalPurchasesPerValList}">
+			<td th:text="${o.service_package_id}"></td>
+			<td th:text="${o.validity_period_id}"></td>
+			<td th:text="${o.number_of_purchases}"></td>
+		</tr>
+	</tbody>
+</table>
+<br>
+
+<div>Total value of sales per package with and without the optional products:</div>
+
+<table> 
+	<thead>
+		<tr>
+			<th>Service Package Id</th>
+			<th>Revenue with Optionals</th>
+			<th>Revenue without Optionals</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each = "o : ${TotalRevenueWithOptionalsList}">
+			<td th:text="${o.service_package_id}"></td>
+			<td th:text="${o.revenue_with_optionals} + ' euro'"></td>
+			<td th:text="${o.revenue_without_optionals} + ' euro'"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<br>
+<div>Average number of optional products sold together with each service package:</div>
+
+<table> 
+	<thead>
+		<tr>
+			<th>Service Package Id</th>
+			<th>Average number of Optionals</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each = "o : ${AverageOptionalsList}">
+			<td th:text="${o.service_package_id}"></td>
+			<td th:text="${o.average_number_of_optionals}"></td>
+		</tr>
+	</tbody>
+</table>
+
+<br>
+<div>List of insolvent users, suspended orders and alerts:</div>
+
+<table> 
+	<thead>
+		<tr>
+			<th>Customers</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each = "o : ${InsolventUsersList}">
+			<td th:text="${o.username}"></td>
+		</tr>
+	</tbody>
+</table>
+
+<br>
+<div>Best seller optional product:</div>
+<br>
+<div th:text="'ID: ' + ${OptionalsTotalRevenue.optional_product_id}"></div>
+<br>
+<div th:text="'Revenue: ' + ${OptionalsTotalRevenue.total_revenue} + ' euro'"></div>
+<br>
+
+
+</body>
+</html>
