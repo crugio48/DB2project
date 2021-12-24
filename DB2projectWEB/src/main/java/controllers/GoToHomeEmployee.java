@@ -30,6 +30,7 @@ public class GoToHomeEmployee extends HttpServlet {
        
 	@EJB(name = "services/OptionalProductService")
 	OptionalProductService optionalProductService;
+	
     public GoToHomeEmployee() {
         super();
     }

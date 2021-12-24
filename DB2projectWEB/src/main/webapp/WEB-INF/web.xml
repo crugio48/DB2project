@@ -11,6 +11,7 @@
 		    <url-pattern>/GoToHomeEmployee</url-pattern> 
 			<url-pattern>/CreateOptionalProduct</url-pattern>
 			<url-pattern>/CreateServicePackage</url-pattern>
+			<url-pattern>/GoToShowStatistics</url-pattern>
 		         
  	</filter-mapping>
   <welcome-file-list>

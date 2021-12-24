@@ -62,33 +62,6 @@
 
 			<br>
 
-        <!-- outdated form code
-
-		
-			Mobile Phone <input type = "checkbox" value = "true" name = "mobile_phone"> <br>
-				Number of minutes: <input type="number" min=0 name="mobile_phone_minutes" > <br>
-				Number of sms: <input type="number" min=0 name="mobile_phone_sms" > <br>
-				Fee per minutes: <input type="number" min=0 step="0.01" name="mobile_phone_fee_minutes" > <br>
-				Fee per sms: <input type="number" min=0 step="0.01" name="mobile_phone_fee_sms"> <br> <br>
-				
-			Mobile Internet <input type = "checkbox" value = "true" name = "mobile_internet"> <br>
-				Number of gigabytes: <input type="number" min=0 name="mobile_gigabytes" > <br>
-				Fee for extra gigabytes: <input type="number" min=0 step="0.01" name="mobile_fee_gigabytes" > <br> <br>
-				
-			Fixed Internet <input type = "checkbox" value = "true" name = "fixed_internet"> <br>
-				Number of gigabytes: <input type="number" min=0 name="fixed_gigabytes" > <br>
-				Fee for extra gigabytes: <input type="number" min=0 step="0.01" name="fixed_fee_gigabytes" > <br> <br>
-			
-			Fixed Phone <input type = "checkbox" value = "true" name = "fixed_phone"> <br> <br>
-			
-		
-
-        -->
-
-            <!-- TODO add fixed phone number input-->
-
-            <!-- TODO add validity period creation with javascript-->
-
             <div> Select the Optional Products that you want in the package: </div>
             <div th:each = "o : ${allOptionalProducts}">
                 <input  type = "checkbox" value = "true" th:name = ${o.optional_product_id} th:text = "${o.name + ' - monthly fee: ' + o.monthly_fee + ' euro'}">
@@ -110,7 +83,18 @@
 		
 		<input type="submit" value="Create Optional Product">
 		</form>
+		
+		
+		<br>
+		<br>
+		<br>
+		
+		<div> <a href="GoToShowStatistics">Go to sales report page</a> </div>
+		
+		
 	</div>
+	
 	</div>
+	
 </body>
 </html>

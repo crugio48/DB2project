@@ -12,6 +12,10 @@
 
 <h1>Sales Report Page</h1>
 
+<div align="right"> <a href="Logout">Logout</a> </div>
+<br>
+<div align="right"> <a href="GoToHomeEmployee">Go back to home</a> </div>
+
 <div>Here you can inspect the essential data about the sales and about the users</div>
 <br>
 
@@ -25,7 +29,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each = "o : ${TotalPurchasesList}">
+		<tr th:each = "o : ${totalPurchasesList}">
 			<td th:text="${o.service_package_id}"></td>
 			<td th:text="${o.number_of_purchases}"></td>
 		</tr>
@@ -43,7 +47,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each = "o : ${TotalPurchasesPerValList}">
+		<tr th:each = "o : ${totalPurchasesPerValList}">
 			<td th:text="${o.service_package_id}"></td>
 			<td th:text="${o.validity_period_id}"></td>
 			<td th:text="${o.number_of_purchases}"></td>
@@ -63,7 +67,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each = "o : ${TotalRevenueWithOptionalsList}">
+		<tr th:each = "o : ${totalRevenueWithOptionalsList}">
 			<td th:text="${o.service_package_id}"></td>
 			<td th:text="${o.revenue_with_optionals} + ' euro'"></td>
 			<td th:text="${o.revenue_without_optionals} + ' euro'"></td>
@@ -83,7 +87,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each = "o : ${AverageOptionalsList}">
+		<tr th:each = "o : ${averageOptionalsList}">
 			<td th:text="${o.service_package_id}"></td>
 			<td th:text="${o.average_number_of_optionals}"></td>
 		</tr>
@@ -91,8 +95,8 @@
 </table>
 
 <br>
-<div>List of insolvent users, suspended orders and alerts:</div>
 
+<div>List of insolvent users:</div>
 <table> 
 	<thead>
 		<tr>
@@ -100,19 +104,76 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each = "o : ${InsolventUsersList}">
+		<tr th:each = "o : ${insolventUsersList}">
 			<td th:text="${o.username}"></td>
 		</tr>
 	</tbody>
 </table>
 
+
 <br>
-<div>Best seller optional product:</div>
+<div>List of alerts:</div>
+<table>
+	<thead>
+		<tr>
+			<th>Alert id</th>
+			<th>Customer</th>
+			<th>Email</th>
+			<th>Amount of last rejected payment</th>
+			<th>Date of last rejected payment</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr th:each="a : ${alertList}">
+			<td th:text="${a.alert_id}"></td>
+			<td th:text="${a.customer.username}"></td>
+			<td th:text="${a.email}"></td>
+			<td th:text="${a.amount + ' euro'}"></td>
+			<td th:text="${a.date_and_time}"></td>
+		</tr>
+	
+	</tbody>
+</table>
+
+
 <br>
-<div th:text="'ID: ' + ${OptionalsTotalRevenue.optional_product_id}"></div>
+<div>List of suspended orders</div>
+<table>
+	<thead>
+		<tr>
+			<th>Order Id</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr th:each="s : ${suspendedOrdersList}">
+			<td th:text="${s.order_id}"></td>
+		</tr>
+	</tbody>
+
+</table>
+
+
 <br>
-<div th:text="'Revenue: ' + ${OptionalsTotalRevenue.total_revenue} + ' euro'"></div>
-<br>
+<div>Best seller/sellers optional product:</div>
+<table>
+	<thead>
+		<tr>
+			<th>Optional Product Id</th>
+			<th>Total revenue</th>
+		</tr>
+	
+	</thead>
+
+	<tbody>
+		<tr th:each= "o : ${optionalsTotalRevenueBestSellersList}">
+			<td th:text="${o.optional_product_id}"></td>
+			<td th:text="${o.total_revenue + ' euro'}"></td>
+		</tr>
+	
+	</tbody>
+</table>
 
 
 </body>

@@ -29,10 +29,11 @@ public class AaTablesService {
 		List<TotalPurchases> list = null;
 		
 		try {
-			list = em.createNamedQuery("TotalPurchases.findAll", TotalPurchases.class).getResultList();
+			list = em.createNamedQuery("TotalPurchases.findAll", TotalPurchases.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
@@ -42,10 +43,11 @@ public class AaTablesService {
 		List<TotalPurchasesPerVal> list = null;
 		
 		try {
-			list = em.createNamedQuery("TotalPurchasesPerVal.findAll", TotalPurchasesPerVal.class).getResultList();
+			list = em.createNamedQuery("TotalPurchasesPerVal.findAll", TotalPurchasesPerVal.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
@@ -55,11 +57,12 @@ public class AaTablesService {
 		List<TotalRevenueWithOptionals> list = null;
 		
 		try {
-			list = em.createNamedQuery("TotalRevenueWithOptionals.findAll", TotalRevenueWithOptionals.class).getResultList();
+			list = em.createNamedQuery("TotalRevenueWithOptionals.findAll", TotalRevenueWithOptionals.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
@@ -68,7 +71,7 @@ public class AaTablesService {
 		List<AverageOptionals> list = null;
 		
 		try {
-			list = em.createNamedQuery("AverageOptionals.findAll", AverageOptionals.class).getResultList();
+			list = em.createNamedQuery("AverageOptionals.findAll", AverageOptionals.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
@@ -81,11 +84,12 @@ public class AaTablesService {
 		List<InsolventUsers> list = null;
 		
 		try {
-			list = em.createNamedQuery("InsolventUsers.findAll", InsolventUsers.class).getResultList();
+			list = em.createNamedQuery("InsolventUsers.findAll", InsolventUsers.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
@@ -95,11 +99,12 @@ public class AaTablesService {
 		List<SuspendedOrders> list = null;
 		
 		try {
-			list = em.createNamedQuery("SuspendedOrders.findAll", SuspendedOrders.class).getResultList();
+			list = em.createNamedQuery("SuspendedOrders.findAll", SuspendedOrders.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
@@ -109,7 +114,7 @@ public class AaTablesService {
 		List<Alert> list = null;
 		
 		try {
-			list = em.createNamedQuery("Alert.findAll", Alert.class).getResultList();
+			list = em.createNamedQuery("Alert.findAll", Alert.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
@@ -123,11 +128,12 @@ public class AaTablesService {
 		List<OptionalsTotalRevenue> list = null;
 		
 		try {
-			list = em.createNamedQuery("OptionalsTotalRevenue.findBestSeller", OptionalsTotalRevenue.class).getResultList();
+			list = em.createNamedQuery("OptionalsTotalRevenue.findBestSeller", OptionalsTotalRevenue.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
+		
 		
 		return list;
 	}
