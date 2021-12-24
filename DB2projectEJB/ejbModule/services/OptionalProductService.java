@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import entities.OptionalProduct;
-import entities.ServicePackage;
 
 @Stateless
 public class OptionalProductService {

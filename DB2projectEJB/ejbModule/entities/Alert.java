@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "alert", schema = "db2data")
+@NamedQuery(name = "Alert.findAll", query = "SELECT a FROM Alert a")
 public class Alert implements Serializable {
 	private static final long serialVersionUID = 1L;
 

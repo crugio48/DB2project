@@ -2,15 +2,22 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="DB2projectEJB">
 		<jta-data-source>DB2projectResource</jta-data-source>
-		<class>entities.Employee</class>
+		<class>entities.Alert</class>
 		<class>entities.Customer</class>
-		<class>entities.ValidityPeriod</class>
-		<class>entities.ServicePackage</class>
-		<class>entities.OptionalProduct</class>
-		<class>entities.Service</class>
+		<class>entities.Employee</class>
 		<class>entities.MobileAndFixedInternet</class>
 		<class>entities.MobilePhone</class>
-		<class>entities.Alert</class>
+		<class>entities.OptionalProduct</class>
 		<class>entities.Order</class>
+		<class>entities.Service</class>
+		<class>entities.ServicePackage</class>
+		<class>entities.ValidityPeriod</class>
+		<class>entities.aaTables.AverageOptionals</class>
+		<class>entities.aaTables.InsolventUsers</class>
+		<class>entities.aaTables.OptionalsTotalRevenue</class>
+		<class>entities.aaTables.SuspendedOrders</class>
+		<class>entities.aaTables.TotalPurchases</class>
+		<class>entities.aaTables.TotalPurchasesPerVal</class>
+		<class>entities.aaTables.TotalRevenueWithOptionals</class>
 	</persistence-unit>
 </persistence>
