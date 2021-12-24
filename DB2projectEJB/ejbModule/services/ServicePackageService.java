@@ -82,14 +82,19 @@ public class ServicePackageService {
 		//by cascading also all services will be persisted (among also the subclasses)
 		em.persist(newPackage);
 		
-		
-		for (OptionalProduct p : allOptionals) {
-			if (optionalsSelected.get(p.getOptional_product_id())) {
-				newPackage.addOptionalProduct(p);
-				p.addServicePackage(newPackage);
-				em.merge(p);
+		if (allOptionals != null) {
+			for (OptionalProduct p : allOptionals) {
+				
+				if (optionalsSelected.get(p.getOptional_product_id())) {
+					newPackage.addOptionalProduct(p);
+					p.addServicePackage(newPackage);
+					em.merge(p);
+				}
 			}
 		}
+		
+		
+		
 	}
 	
 }

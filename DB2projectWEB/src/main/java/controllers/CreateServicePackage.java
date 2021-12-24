@@ -194,19 +194,24 @@ public class CreateServicePackage extends HttpServlet {
 		
 		List<OptionalProduct> allOptionals = optionalProductService.getAllOptionalProducts();
 		
-		for(OptionalProduct p : allOptionals) {
-			optionalsSelected.put(p.getOptional_product_id(), false);  //initialize all optional products to false
+		if (allOptionals != null) {
+			
+			for(OptionalProduct p : allOptionals) {
+				optionalsSelected.put(p.getOptional_product_id(), false);  //initialize all optional products to false
+			}
+			
+			try {
+				for(OptionalProduct p : allOptionals) {
+					optionalsSelected.put(p.getOptional_product_id() , Boolean.valueOf(request.getParameter(String.valueOf(p.getOptional_product_id()))));
+				}
+			} catch(ClassCastException | IllegalArgumentException | NullPointerException e) {
+				session.setAttribute("errorMsg", "Don't hack please");
+				response.sendRedirect(homePagePath);
+				return;
+			}
 		}
 		
-		try {
-			for(OptionalProduct p : allOptionals) {
-				optionalsSelected.put(p.getOptional_product_id() , Boolean.valueOf(request.getParameter(String.valueOf(p.getOptional_product_id()))));
-			}
-		} catch(ClassCastException | IllegalArgumentException | NullPointerException e) {
-			session.setAttribute("errorMsg", "Don't hack please");
-			response.sendRedirect(homePagePath);
-			return;
-		}
+		
 		
 		
 		List<ValidityPeriod> validityPeriods = new ArrayList();
