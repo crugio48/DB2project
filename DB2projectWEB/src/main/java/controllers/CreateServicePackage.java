@@ -93,8 +93,16 @@ public class CreateServicePackage extends HttpServlet {
 			return;
 		}
 		
+		//no service can be selected as negative number
 		if (mobilePhoneSelected < 0 || fixedPhoneSelected < 0 || mobileInternetSelected < 0 || fixedInternetSelected < 0) {
 			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		//at least one service has to be included
+		if ((mobilePhoneSelected + fixedPhoneSelected + mobileInternetSelected + fixedInternetSelected) == 0) {
+			session.setAttribute("errorMsg", "Service packages must have at least one service");
 			response.sendRedirect(homePagePath);
 			return;
 		}
@@ -220,7 +228,14 @@ public class CreateServicePackage extends HttpServlet {
 		try {
 			validityCounter = Integer.parseInt(request.getParameter("validity_periods"));
 		} catch(NumberFormatException | NullPointerException e) {
-			session.setAttribute("errorMsg", "Invalid mobile phone parameters");
+			session.setAttribute("errorMsg", "Don't hack please");
+			response.sendRedirect(homePagePath);
+			return;
+		}
+		
+		//check of at least one validity period selected
+		if (validityCounter < 1) {
+			session.setAttribute("errorMsg", "Select at least one validity period");
 			response.sendRedirect(homePagePath);
 			return;
 		}
