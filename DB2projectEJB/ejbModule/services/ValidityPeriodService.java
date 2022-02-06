@@ -22,7 +22,7 @@ public class ValidityPeriodService {
 		List<ValidityPeriod> validityPeriodList = null;
 		
 		try {
-			validityPeriodList = em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).getResultList();
+			validityPeriodList = em.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 			
 		} catch(PersistenceException e){
 			System.out.println("PersistenceException");

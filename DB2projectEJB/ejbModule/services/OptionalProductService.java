@@ -24,7 +24,7 @@ public class OptionalProductService {
 		List<OptionalProduct> optionalProductsList = null;
 		
 		try {
-			optionalProductsList = em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class).getResultList();
+			optionalProductsList = em.createNamedQuery("OptionalProduct.findAll", OptionalProduct.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}

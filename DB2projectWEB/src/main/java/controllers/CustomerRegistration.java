@@ -64,6 +64,7 @@ public class CustomerRegistration extends HttpServlet {
 		
 		Customer customer = null;
 		
+		//this method also checks if username is already used for an employee or for a customer
 		customer = customerService.createCustomer(usrn, pwd, email);
 		
 		String path = null;
@@ -73,17 +74,19 @@ public class CustomerRegistration extends HttpServlet {
 			return;
 		}
 		else {
-			session.setAttribute("customer", customer);
 			
+			//if there is a temp order in the session then login and go to the confirmation page
 			if (session.getAttribute("tempOrder") != null) {
+				session.setAttribute("customer", customer);
+				
 				path = getServletContext().getContextPath() + "/GoToConfirmationAfterLogin";
 				response.sendRedirect(path);
 				return;
 			}
 			
-			path = getServletContext().getContextPath() + "/GoToHomeCustomer";
 			session.setAttribute("errorMsg", "Registration successfull");
-			response.sendRedirect(path);
+			response.sendRedirect(loginpath);
+			return;
 		}
 		
 	}

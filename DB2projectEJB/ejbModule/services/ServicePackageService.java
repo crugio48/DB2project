@@ -27,7 +27,7 @@ public class ServicePackageService {
 		List<ServicePackage> packagesList = null;
 		
 		try {
-			packagesList = em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).getResultList();
+			packagesList = em.createNamedQuery("ServicePackage.findAll", ServicePackage.class).setHint("javax.persistence.cache.storeMode", "REFRESH").getResultList();
 		} catch (PersistenceException e) {
 			System.out.println("PersistenceException");
 		}
