@@ -21,15 +21,15 @@ import entities.Customer;
 import services.OrderService;
 
 
-@WebServlet("/CreateOrderPayed")
-public class CreateOrderPayed extends HttpServlet {
+@WebServlet("/CreateOrderPaid")
+public class CreateOrderPaid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	
 	@EJB(name = "services/OrderService")
 	private OrderService orderService;
     
-    public CreateOrderPayed() {
+    public CreateOrderPaid() {
         super();
     }
     
@@ -56,7 +56,7 @@ public class CreateOrderPayed extends HttpServlet {
 			return;
 		}
 		
-		String outcome = "payed";
+		String outcome = "paid";
 		
 		Date date = new Date(System.currentTimeMillis());
 		

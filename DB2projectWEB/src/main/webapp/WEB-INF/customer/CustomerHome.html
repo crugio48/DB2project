@@ -21,7 +21,7 @@
 	<p style="color:red;" th:text=" ${errorMsg}"></p>
 	
 	<div th:if="${session.customer && !rejectedOrders.isEmpty()}">
-		<div>List of your non payed past orders you can retry to buy:</div>
+		<div>List of your non paid past orders you can retry to buy:</div>
 		<table>
 			<thead>
 				<tr>                        <!-- creation date not printed cause it will then be overwritten when bought again -->

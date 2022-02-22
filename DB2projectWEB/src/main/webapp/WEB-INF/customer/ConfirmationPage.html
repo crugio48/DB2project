@@ -58,13 +58,13 @@
 		<br>
 		<br>
 		
-		<div th:text="${'Total amount to be payed in advance: ' + totalAmount + ' euro'}"></div>
+		<div th:text="${'Total amount to be paid in advance: ' + totalAmount + ' euro'}"></div>
 		
 		<br>
 		<br>
 		
 		<div th:if="${session.customer}">
-			<a th:href="@{/CreateOrderPayed}"> <button type="button">Buy paying surely</button></a>
+			<a th:href="@{/CreateOrderPaid}"> <button type="button">Buy paying surely</button></a>
 			<br>
 			<a th:href="@{/CreateOrderRejected}"> <button type="button">Buy with rejected payment</button></a>
 		</div>
