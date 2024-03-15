@@ -5,6 +5,8 @@ Final project for the course Data Bases 2 @ Politecnico di Milano A.Y. 2021-2022
 
 ## Project Overview
 This project involves the development of two client applications for a telco company offering pre-paid online services. The applications share a common database and cater to different users: consumers and employees.
+Please take a look at the [**Project Documentation**](https://github.com/crugio48/DB2project/blob/master/Project%20Documentation.pdf) for a full overview of the project. 
+
 
 ### Consumer Application
 - **Landing Page**: Public access with login and registration forms.
