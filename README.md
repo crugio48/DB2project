@@ -1,12 +1,14 @@
 # 
 
 # Telco Service Applications
-Final project for the course Data Bases 2 @ Politecnico di Milano A.Y. 2021-2022
+Final project for the course Data Bases 2 @ Politecnico di Milano A.Y. 2021-2022.
+
+# Full Docs
+*Refer to the provided [**Project Documentation**](https://github.com/crugio48/DB2project/blob/master/Project%20Documentation.pdf) for design choices and further guidance.*
+
 
 ## Project Overview
 This project involves the development of two client applications for a telco company offering pre-paid online services. The applications share a common database and cater to different users: consumers and employees.
-Please take a look at the [**Project Documentation**](https://github.com/crugio48/DB2project/blob/master/Project%20Documentation.pdf) for a full overview of the project. 
-
 
 ### Consumer Application
 - **Landing Page**: Public access with login and registration forms.
@@ -47,4 +49,3 @@ Please take a look at the [**Project Documentation**](https://github.com/crugio4
 - **Materialized View Tables**: Aggregated sales data computed via triggers.
 - **Documentation Structure**: Includes hypotheses, ER diagrams, SQL schemas, view/table descriptions, and UML diagrams.
 
-*Refer to the provided **Project Documentation.pdf** for design choices and further guidance.*
